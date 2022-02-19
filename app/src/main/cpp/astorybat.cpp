@@ -32,7 +32,7 @@ int get_all_smeta_callback(StroybatSmeta *smeta, void *data, char *error){
 
 		jmethodID getAllSmetaCallback = env->GetMethodID(MainActivity, "getAllSmetaCallback", "(Lcom/examle/astroybat/Smeta;)V");	
 		
-		env->CallVoidMethod (g_obj, getAllSmetaCallback, smeta);	
+		env->CallVoidMethod (g_obj, getAllSmetaCallback, smeta_object);	
 	}
 	return 0;	
 }
