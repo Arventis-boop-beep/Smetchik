@@ -1,3 +1,10 @@
+/**
+ * File              : build.gradle
+ * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
+ * Date              : 19.02.2022
+ * Last Modified Date: 19.02.2022
+ * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
+ */
 plugins {
     id 'com.android.application'
 }
@@ -24,6 +31,15 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.10.2'
+        }
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 
