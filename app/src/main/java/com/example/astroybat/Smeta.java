@@ -6,7 +6,7 @@
  * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 
-package com.examle.astroybat;
+package com.example.astroybat;
 
 public class Smeta {
     public String uuid;
@@ -19,14 +19,14 @@ public class Smeta {
 	public String osnovaniye;
 	
     public Smeta(
-		String uuid,
-		String title,
-		long   date,
-		String zakazchik,
-		String podriadchik,
-		String raboti,
-		String obiekt,
-		String osnovaniye
+			String uuid,
+			String title,
+			Long date,
+			String zakazchik,
+			String podriadchik,
+			String raboti,
+			String obiekt,
+			String osnovaniye
 	){
 		this.uuid = uuid;
 		this.title = title;
@@ -37,4 +37,9 @@ public class Smeta {
 		this.obiekt = obiekt;
 		this.osnovaniye = osnovaniye;
     }
+
+	public String getTitle() {
+		return title;
+	}
+
 }
