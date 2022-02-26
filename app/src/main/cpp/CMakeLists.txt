@@ -10,6 +10,8 @@ cmake_minimum_required(VERSION 3.18.1)
 
 project("astroybat")
 
+add_subdirectory("stroybat")
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -35,7 +37,7 @@ find_library( # Sets the name of the path variable.
 
               # Specifies the name of the NDK library that
               # you want CMake to locate.
-              log )
+              log stroybat)
 
 # Specifies libraries CMake should link to your target library. You
 # can link multiple libraries, such as libraries you define in this

@@ -34,8 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Smeta> getList(){
         List<Smeta> smetaList = new ArrayList<>();
-        smetaList.add(new Smeta(null, null, null, null,null,null,null,null));
+        smetaList.add(new Smeta(null, null, 0, null,null,null,null,null));
         return smetaList;
+    }
+
+    void getAllSmetaCallback(Smeta smeta) {
+
     }
 }
 
