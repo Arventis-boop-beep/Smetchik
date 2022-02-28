@@ -1,3 +1,10 @@
+/**
+ * File              : astroybat.cpp
+ * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
+ * Date              : 28.02.2022
+ * Last Modified Date: 28.02.2022
+ * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
+ */
 // Write C++ code here.
 //
 // Do not forget to dynamically load the C++ library into your application.
@@ -22,6 +29,7 @@
 
 static jobject g_obj;
 
+extern "C"
 int get_all_smeta_callback(StroybatSmeta *smeta, void *data, char *error){
     JNIEnv *env = (JNIEnv *) data;
 
@@ -40,6 +48,8 @@ int get_all_smeta_callback(StroybatSmeta *smeta, void *data, char *error){
                                               env->NewStringUTF(smeta->obiekt),
                                               env->NewStringUTF(smeta->osnovaniye)
         );
+
+		free(smeta); //no need any more
 
         jclass MainActivity = env->FindClass("com/example/astroybat/MainActivity");
         jmethodID getAllSmetaCallback = env->GetMethodID(MainActivity, "getAllSmetaCallback",

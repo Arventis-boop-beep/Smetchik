@@ -13,3 +13,10 @@
 .externalNativeBuild
 .cxx
 local.properties
+compile_commands.json
+run.log
+run_app
+*.vim
+Makefile
+install
+start_emulator
