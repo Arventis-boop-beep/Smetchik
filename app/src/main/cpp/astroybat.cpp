@@ -30,25 +30,34 @@
 static jobject g_obj;
 
 extern "C"
+jobject 
+smetaObjectFromSmeta(JNIEnv *env, StroybatSmeta *smeta)
+{
+    jclass Smeta = env->FindClass("com/example/astroybat/Smeta");
+    jmethodID newSmeta = env->GetMethodID(Smeta, "<init>",
+            "(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+	
+	jobject smetaObject = env->NewObject(Smeta, newSmeta,
+										  env->NewStringUTF(smeta->uuid),
+										  env->NewStringUTF(smeta->title),
+										  smeta->date,
+										  env->NewStringUTF(smeta->zakazchik),
+										  env->NewStringUTF(smeta->podriadchik),
+										  env->NewStringUTF(smeta->raboti),
+										  env->NewStringUTF(smeta->obiekt),
+										  env->NewStringUTF(smeta->osnovaniye)
+	);
+
+	return smetaObject;
+}
+
+extern "C"
 int get_all_smeta_callback(StroybatSmeta *smeta, void *data, char *error){
     JNIEnv *env = (JNIEnv *) data;
 
-    jclass Smeta = env->FindClass("com/example/astroybat/Smeta");
-    jmethodID newSmeta = env->GetMethodID(Smeta, "<init>",
-                                          "(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
     if (error){
     } else {
-        jobject smeta_object = env->NewObject(Smeta, newSmeta,
-                                              env->NewStringUTF(smeta->uuid),
-                                              env->NewStringUTF(smeta->title),
-                                              smeta->date,
-                                              env->NewStringUTF(smeta->zakazchik),
-                                              env->NewStringUTF(smeta->podriadchik),
-                                              env->NewStringUTF(smeta->raboti),
-                                              env->NewStringUTF(smeta->obiekt),
-                                              env->NewStringUTF(smeta->osnovaniye)
-        );
-
+        jobject smeta_object = smetaObjectFromSmeta(env, smeta); 
 		free(smeta); //no need any more
 
         jclass MainActivity = env->FindClass("com/example/astroybat/MainActivity");
@@ -75,23 +84,9 @@ JNIEXPORT jint JNICALL
 Java_com_example_astroybat_MainActivity_addNewSmeta(JNIEnv* env, jobject obj) {
 
     g_obj = obj;
+
 	auto smeta = stroybat_smeta_new();
-
-    jclass Smeta = env->FindClass("com/example/astroybat/Smeta");
-    jmethodID newSmeta = env->GetMethodID(Smeta, "<init>",
-                                          "(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-
-	jobject smeta_object = env->NewObject(Smeta, newSmeta,
-										  env->NewStringUTF(smeta->uuid),
-										  env->NewStringUTF(smeta->title),
-										  smeta->date,
-										  env->NewStringUTF(smeta->zakazchik),
-										  env->NewStringUTF(smeta->podriadchik),
-										  env->NewStringUTF(smeta->raboti),
-										  env->NewStringUTF(smeta->obiekt),
-										  env->NewStringUTF(smeta->osnovaniye)
-	);	
-
+    jobject smeta_object = smetaObjectFromSmeta(env, smeta); 
 	free(smeta); //no need any more
 
 	jclass MainActivity = env->FindClass("com/example/astroybat/MainActivity");
