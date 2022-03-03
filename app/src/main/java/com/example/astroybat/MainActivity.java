@@ -1,41 +1,56 @@
 package com.example.astroybat;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    String[] smeta_titles = {"1", "2", "3"}; //Получить массив смет и записать smeta->title в этот
+                                             //массив
 
-    RecyclerView recycler_view;
-    SmetaAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recycler_view = findViewById(R.id.recycler_view);
 
-        setRecyclerView();
-    }
+        ListView lvMain = (ListView)findViewById(R.id.lv);
 
-    private void setRecyclerView() {
-        recycler_view.setHasFixedSize(true);
-        recycler_view.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SmetaAdapter(this, getList());
-        recycler_view.setAdapter(adapter)
-        ;
-    }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, smeta_titles);
 
-    private List<Smeta> getList(){
-        List<Smeta> smetaList = new ArrayList<>();
-        smetaList.add(new Smeta(null, null, null, null,null,null,null,null));
-        return smetaList;
+        lvMain.setAdapter(adapter);
+
+        lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
+
+        lvMain.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                return false;
+            }
+        });
+
+        Button add_button = (Button)findViewById(R.id.add_button);
+        add_button.setOnClickListener(new Button.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+
     }
 }
+
 

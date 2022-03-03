@@ -41,5 +41,4 @@ public class Smeta {
 	public String getTitle() {
 		return title;
 	}
-
 }
