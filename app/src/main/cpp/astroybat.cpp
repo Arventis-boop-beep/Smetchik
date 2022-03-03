@@ -103,5 +103,5 @@ extern "C"
 JNIEXPORT jint JNICALL
 Java_com_example_astroybat_MainActivity_removeSmeta(JNIEnv* env, jobject obj, jstring uuid) {
 
-	return stroybat_smeta_remove_alle(env->GetStringUTFChars(uuid, 0));
+	return stroybat_smeta_remove_all(env->GetStringUTFChars(uuid, 0));
 }
