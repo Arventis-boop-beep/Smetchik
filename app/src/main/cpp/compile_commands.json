@@ -1,0 +1,8 @@
+[
+  {
+    "directory": "/",
+    "command": "clang -std=c11 -I. -I.. -I/Users/kuzmich/Library/Android/sdk/ndk/23.0.7599858/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include",
+    "file": "astroybat.cpp",
+    "output": "/"
+  }
+]

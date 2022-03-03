@@ -11,7 +11,7 @@ package com.example.astroybat;
 public class Smeta {
     public String uuid;
     public String title;
-	public long date;
+	public int date;
 	public String zakazchik;
 	public String podriadchik;
 	public String raboti;
@@ -21,7 +21,7 @@ public class Smeta {
     public Smeta(
 			String uuid,
 			String title,
-			Long date,
+			int date,
 			String zakazchik,
 			String podriadchik,
 			String raboti,

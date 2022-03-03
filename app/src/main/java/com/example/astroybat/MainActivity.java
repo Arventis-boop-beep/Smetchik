@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     String[] smeta_titles = {"1", "2", "3"}; //Получить массив смет и записать smeta->title в этот
@@ -20,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        ListView lvMain = (ListView)findViewById(R.id.lv);
+        ListView lvMain = (ListView) findViewById(R.id.lv);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, smeta_titles);
@@ -41,16 +44,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button add_button = (Button)findViewById(R.id.add_button);
-        add_button.setOnClickListener(new Button.OnClickListener()
-        {
+        Button add_button = (Button) findViewById(R.id.add_button);
+        add_button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
             }
         });
-
-
     }
+
+//    private List<Smeta> getList(){
+//        List<Smeta> smetaList = new ArrayList<>();
+//        smetaList.add(new Smeta(
+//                null,
+//                null,
+//                0,
+//                null,
+//                null,
+//                null,
+//                null,
+//                null
+//        ));
+//        return smetaList;
+//    }
+//
+//    void getAllSmetaCallback(Smeta smeta) {
+//
+//    }
 }
 
 
