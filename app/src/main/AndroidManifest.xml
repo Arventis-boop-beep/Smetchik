@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Astroybat">
         <activity
+            android:name=".SmetaAddition"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

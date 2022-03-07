@@ -1,6 +1,8 @@
 package com.example.astroybat;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,17 +16,33 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] smeta_titles = {"1", "2", "3"}; //Получить массив смет и записать smeta->title в этот
-                                             //массив
+    static {
+        System.loadLibrary("astroybat");
+    }
+
+    native void getAllSmetaCallback(Smeta smeta);
+    private native int getAllSmeta();
+    private native int addNewSmeta();
+    native void newSmetaCallback(Smeta smeta);
+    private native int removeSmeta(String uuid);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        int count = getAllSmeta();
+        Smeta smetas[] = new Smeta[count];
+        for(int i = 0; i < count; i++){
+            getAllSmetaCallback(smetas[i]);
+        }
+
+        ArrayList<String> smeta_titles = new ArrayList<>();
+        for(int i = 0; i < count; i++){
+            smeta_titles.add(smetas[i].title);
+        }
 
         ListView lvMain = (ListView) findViewById(R.id.lv);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, smeta_titles);
 
@@ -48,8 +66,14 @@ public class MainActivity extends AppCompatActivity {
         add_button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
+                openSmetaAdditionAcivity();
             }
         });
+    }
+
+    private void openSmetaAdditionAcivity() {
+        Intent intent = new Intent(this, SmetaAddition.class);
+        startActivity(intent);
     }
 
 //    private List<Smeta> getList(){
