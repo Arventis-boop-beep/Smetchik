@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">astroybat</string>
     <string name="Add_smeta_button">Добавить смету</string>
-    <string name="new_smeta">Новая смета</string>
+    <string name="edit_smeta">Редактировать смету</string>
     <string name="title">Имя сметы</string>
     <string name="zakazchik">Заказчик</string>
     <string name="podryadchik">Подрядчик</string>
     <string name="object">Объект</string>
     <string name="raboti">Работы</string>
     <string name="osnovanie">Основание</string>
+    <string name="edit_context">Редактировать смету</string>
+    <string name="delete">Удалить смету</string>
 
 </resources>

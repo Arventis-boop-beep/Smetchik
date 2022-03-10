@@ -37,8 +37,4 @@ public class Smeta {
 		this.obiekt = obiekt;
 		this.osnovaniye = osnovaniye;
     }
-
-	public String getTitle() {
-		return title;
-	}
 }

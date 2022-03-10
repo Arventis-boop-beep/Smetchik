@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Astroybat">
         <activity
-            android:name=".SmetaAddition"
+            android:name=".SmetaEdit"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
