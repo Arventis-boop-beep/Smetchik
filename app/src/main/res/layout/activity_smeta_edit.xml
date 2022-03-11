@@ -91,36 +91,46 @@
 
     <EditText
         android:id="@+id/title"
+        android:inputType="text"
         android:layout_width="351dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:autofillHints="Новая смета"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/zakazchik"
+        android:inputType="text"
         android:layout_width="351dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="156dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:autofillHints="Заказчик"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/podryadchik"
+        android:inputType="text"
         android:layout_width="351dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="252dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:autofillHints="Подрядчик"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/raboti"
+        android:inputType="text"
         android:layout_width="351dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="352dp"
@@ -128,20 +138,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:autofillHints="Работы"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/object"
+        android:inputType="text"
         android:layout_width="351dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="456dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:autofillHints="Объект"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/osnovanie"
+        android:inputType="text"
         android:layout_width="351dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="560dp"
@@ -149,6 +165,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:autofillHints="Основание"
+        tools:ignore="LabelFor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

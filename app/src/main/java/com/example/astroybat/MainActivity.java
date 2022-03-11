@@ -3,6 +3,7 @@ package com.example.astroybat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -38,30 +39,24 @@ public class MainActivity extends AppCompatActivity {
         smeta_titles = new ArrayList<>();
         getAllSmeta();
 
-        ListView lvMain = (ListView) findViewById(R.id.lv);
+        ListView lvMain = findViewById(R.id.lv);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smeta_titles);
 
         lvMain.setAdapter(adapter);
 
         //Переход в меню сметы: услуги и материалы
-        lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        lvMain.setOnItemClickListener((adapterView, view, i, l) -> {
 
-            }
         });
 
         //Контекстное меню удалить/редактировать
         registerForContextMenu(lvMain);
 
         //Добавить новую смету
-        Button add_button = (Button) findViewById(R.id.add_button);
-        add_button.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNewSmeta();
-                adapter.notifyDataSetChanged();
-            }
+        Button add_button = findViewById(R.id.add_button);
+        add_button.setOnClickListener(view -> {
+            addNewSmeta();
+            adapter.notifyDataSetChanged();
         });
     }
 
@@ -71,21 +66,23 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.context_menu, menu);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         AdapterView.AdapterContextMenuInfo i = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         switch(item.getItemId()){
             case R.id.delete:
+                removeSmeta(smetas.get(i.position).uuid);
                 smetas.remove(i.position);
                 smeta_titles.remove(i.position);
                 adapter.notifyDataSetChanged();
                 return true;
 
             case R.id.edit:
-
                 openSmetaEditAcivity();
                 return true;
+
             default:
                 return super.onContextItemSelected(item);
         }
