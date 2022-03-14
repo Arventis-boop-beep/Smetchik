@@ -2,7 +2,7 @@
  * File              : astroybat.cpp
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 28.02.2022
- * Last Modified Date: 04.03.2022
+ * Last Modified Date: 14.03.2022
  * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 // Write C++ code here.
@@ -104,4 +104,23 @@ JNIEXPORT jint JNICALL
 Java_com_example_astroybat_MainActivity_removeSmeta(JNIEnv* env, jobject obj, jstring uuid) {
 
 	return stroybat_smeta_remove_all(env->GetStringUTFChars(uuid, 0));
+}
+
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_example_astroybat_SmetaEdit_getSmeta(JNIEnv* env, jobject obj, jstring uuid) {
+
+    g_obj = obj;
+	
+	auto smeta = stroybat_smeta_with_uuid(env->GetStringUTFChars(uuid, 0));
+    jobject smetaObject = smetaObjectFromSmeta(env, smeta); 
+	free(smeta); //no need any more
+
+	jclass MainActivity = env->FindClass("com/example/astroybat/SmetaEdit");
+	jmethodID callback = env->GetMethodID(MainActivity, "getSmetaCallback",
+													 "(Lcom/example/astroybat/Smeta;)V");
+
+	env->CallVoidMethod (g_obj, callback, smetaObject);	
+
+    return 0;
 }
