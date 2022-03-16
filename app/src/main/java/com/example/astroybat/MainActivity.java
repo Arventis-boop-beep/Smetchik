@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Переход в меню сметы: услуги и материалы
         lvMain.setOnItemClickListener((adapterView, view, i, l) -> {
-
+            openSmetaContentMenu(i);
         });
 
         //Контекстное меню удалить/редактировать
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.edit:
-                openSmetaEditAcivity();
+                openSmetaEditActivity(i);
                 return true;
 
             default:
@@ -88,12 +89,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void openSmetaEditAcivity() {
+    private void openSmetaEditActivity(AdapterView.AdapterContextMenuInfo i) {
         Intent intent = new Intent(this, SmetaEdit.class);
+
+        intent.putExtra("uuid", smetas.get(i.position).uuid);
+
+        startActivity(intent);
+    }
+
+    private void openSmetaContentMenu(int position){
+        Intent intent = new Intent(this, SmetaContentMenu.class);
+
+        intent.putExtra("uuid", smetas.get(position).uuid);
+
         startActivity(intent);
     }
 
     private void addNewSmetaCallback(Smeta smeta){
+        smeta.title = "Новая смета";
         smeta_titles.add(smeta.title);
         smetas.add(smeta);
 

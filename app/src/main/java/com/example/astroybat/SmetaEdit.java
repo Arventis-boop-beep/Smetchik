@@ -4,28 +4,69 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
 
 public class SmetaEdit extends AppCompatActivity {
+
+    private native int getSmeta(String uuid);
+
+    Button backToMain;
+    Button save;
+
+    String uuid;
+    Smeta smeta;
+
+    EditText title, zakazchik, podryadchik, raboti, object, osnovanie;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smeta_edit);
 
-        Button backToMain = (Button) findViewById(R.id.back_to_MainActivity);
-        backToMain.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Intent intent_ = getIntent();
+        uuid = intent_.getStringExtra("uuid");
 
-                closeSmetaEditActivity();
-            }
+        //Кнопка возврата
+        backToMain = findViewById(R.id.back_to_MainActivity);
+        backToMain.setOnClickListener(view -> closeSmetaEditActivity());
+
+
+        //Кнопка сохранения
+        save = findViewById(R.id.save_edited_smeta);
+
+        title = findViewById(R.id.title);
+        zakazchik = findViewById(R.id.zakazchik);
+        podryadchik = findViewById(R.id.podryadchik);
+        raboti = findViewById(R.id.raboti);
+        object = findViewById(R.id.object);
+        osnovanie = findViewById(R.id.osnovanie);
+
+        save.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainActivity.class);
+
+            getSmeta(uuid);
+
+            smeta.title = title.getText().toString();
+            smeta.zakazchik = zakazchik.getText().toString();
+            smeta.podriadchik = podryadchik.getText().toString();
+            smeta.raboti = raboti.getText().toString();
+            smeta.obiekt = object.getText().toString();
+            smeta.osnovaniye = osnovanie.getText().toString();
+
+            startActivity(intent);
         });
+
     }
 
     private void closeSmetaEditActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void getSmetaCallback(Smeta smeta_){
+        smeta = smeta_;
     }
 }

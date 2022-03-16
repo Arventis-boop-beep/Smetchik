@@ -15,18 +15,31 @@
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <Button
         android:id="@+id/back_to_MainActivity"
-        android:layout_width="42dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.372"
+        android:layout_width="127dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="626dp"
+        android:text="@string/back_to_MainActivity"
+        app:layout_constraintEnd_toStartOf="@+id/save_edited_smeta"
+        app:layout_constraintHorizontal_bias="0.392"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/save_edited_smeta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_edited_smeta_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.782"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/osnovanie"
+        app:layout_constraintVertical_bias="0.486" />
 
     <TextView
         android:layout_width="wrap_content"
