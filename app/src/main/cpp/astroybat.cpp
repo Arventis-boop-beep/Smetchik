@@ -26,6 +26,7 @@
 #include "stroybat/libstroybat.h"
 
 #include <jni.h>
+#include <cstdlib>
 
 static jobject g_obj;
 
@@ -36,17 +37,18 @@ smetaObjectFromSmeta(JNIEnv *env, StroybatSmeta *smeta)
     jclass Smeta = env->FindClass("com/example/astroybat/Smeta");
     jmethodID newSmeta = env->GetMethodID(Smeta, "<init>",
             "(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-	
-	jobject smetaObject = env->NewObject(Smeta, newSmeta,
-										  env->NewStringUTF(smeta->uuid),
-										  env->NewStringUTF(smeta->title),
-										  smeta->date,
-										  env->NewStringUTF(smeta->zakazchik),
-										  env->NewStringUTF(smeta->podriadchik),
-										  env->NewStringUTF(smeta->raboti),
-										  env->NewStringUTF(smeta->obiekt),
-										  env->NewStringUTF(smeta->osnovaniye)
-	);
+
+    jobject smetaObject;
+    smetaObject = env->NewObject(Smeta, newSmeta,
+                                 env->NewStringUTF(smeta->uuid),
+                                 env->NewStringUTF(smeta->title),
+                                 (int)smeta->date,
+                                 env->NewStringUTF(smeta->zakazchik),
+                                 env->NewStringUTF(smeta->podriadchik),
+                                 env->NewStringUTF(smeta->raboti),
+                                 env->NewStringUTF(smeta->obiekt),
+                                 env->NewStringUTF(smeta->osnovaniye)
+    );
 
 	return smetaObject;
 }
@@ -90,7 +92,7 @@ Java_com_example_astroybat_MainActivity_addNewSmeta(JNIEnv* env, jobject obj) {
 	free(smeta); //no need any more
 
 	jclass MainActivity = env->FindClass("com/example/astroybat/MainActivity");
-	jmethodID newSmetaCallback = env->GetMethodID(MainActivity, "newSmetaCallback",
+	jmethodID newSmetaCallback = env->GetMethodID(MainActivity, "addNewSmetaCallback",
 													 "(Lcom/example/astroybat/Smeta;)V");
 
 	env->CallVoidMethod (g_obj, newSmetaCallback, smetaObject);	
