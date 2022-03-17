@@ -112,5 +112,5 @@ Java_com_example_astroybat_MainActivity_getAllSmeta(JNIEnv *env, jobject obj) {
 			}
 			return 0;
 		}
-	});
+	);
 }
