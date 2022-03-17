@@ -53,30 +53,6 @@ smetaObjectFromSmeta(JNIEnv *env, StroybatSmeta *smeta)
 
 extern "C"
 JNIEXPORT jint JNICALL
-Java_com_example_astroybat_MainActivity_getAllSmeta(JNIEnv* env, jobject obj) {
-    stroybat_get_all_smeta(NULL, env, 
-		[=](auto smeta, auto data, auto error) -> int{
-			JNIEnv* env = data;
-			if (error){
-			} else {
-				jobject smetaObject = smetaObjectFromSmeta(env, smeta); 
-				free(smeta); //no need any more
-
-				jclass MainActivity = env->FindClass("com/example/astroybat/MainActivity");
-				jmethodID getAllSmetaCallback = env->GetMethodID(MainActivity, "getAllSmetaCallback",
-																 "(Lcom/example/astroybat/Smeta;)V");
-
-				env->CallVoidMethod (obj, getAllSmetaCallback, smetaObject);
-			}
-			return 0;			
-		}
-	);
-
-    return 0;
-}
-
-extern "C"
-JNIEXPORT jint JNICALL
 Java_com_example_astroybat_MainActivity_addNewSmeta(JNIEnv* env, jobject obj) {
 
 	auto smeta = stroybat_smeta_new();
@@ -115,4 +91,26 @@ Java_com_example_astroybat_SmetaEdit_getSmeta(JNIEnv* env, jobject obj, jstring 
 	env->CallVoidMethod (obj, callback, smetaObject);	
 
     return 0;
+}
+
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_example_astroybat_MainActivity_getAllSmeta(JNIEnv *env, jobject obj) {
+	// TODO: implement getAllSmeta()
+	stroybat_get_all_smeta(NULL, NULL,
+						   [=](auto smeta, auto data, auto error) -> int {
+			if (error){
+			} else {
+				jobject smetaObject = smetaObjectFromSmeta(env, smeta);
+				free(smeta); //no need any more
+
+				jclass MainActivity = env->FindClass("com/example/astroybat/MainActivity");
+				jmethodID getAllSmetaCallback = env->GetMethodID(MainActivity, "getAllSmetaCallback",
+																 "(Lcom/example/astroybat/Smeta;)V");
+
+				env->CallVoidMethod (obj, getAllSmetaCallback, smetaObject);
+			}
+			return 0;
+		}
+	});
 }
