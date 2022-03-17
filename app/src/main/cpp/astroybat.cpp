@@ -93,12 +93,23 @@ Java_com_example_astroybat_SmetaEdit_getSmeta(JNIEnv* env, jobject obj, jstring 
     return 0;
 }
 
+struct stroybat_get_all_smeta_data {
+	JNIEnv *env;
+	jobject obj;
+};
+
 extern "C"
 JNIEXPORT jint JNICALL
 Java_com_example_astroybat_MainActivity_getAllSmeta(JNIEnv *env, jobject obj) {
 	// TODO: implement getAllSmeta()
+	struct stroybat_get_all_smeta_data data;
+	data.env = env;
+	data.obj = obj;
 	stroybat_get_all_smeta(NULL, NULL,
-						   [=](auto smeta, auto data, auto error) -> int {
+						   [](auto smeta, auto _data, auto error) -> int {
+		struct stroybat_get_all_smeta_data *data = static_cast<stroybat_get_all_smeta_data *>(_data);
+		JNIEnv *env = data->env;
+		jobject obj	= data->obj;
 			if (error){
 			} else {
 				jobject smetaObject = smetaObjectFromSmeta(env, smeta);
