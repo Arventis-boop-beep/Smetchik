@@ -105,7 +105,7 @@ Java_com_example_astroybat_MainActivity_getAllSmeta(JNIEnv *env, jobject obj) {
 	struct stroybat_get_all_smeta_data data;
 	data.env = env;
 	data.obj = obj;
-	stroybat_get_all_smeta(NULL, NULL,
+	stroybat_get_all_smeta(NULL, &data,
 						   [](auto smeta, auto _data, auto error) -> int {
 		struct stroybat_get_all_smeta_data *data = static_cast<stroybat_get_all_smeta_data *>(_data);
 		JNIEnv *env = data->env;
