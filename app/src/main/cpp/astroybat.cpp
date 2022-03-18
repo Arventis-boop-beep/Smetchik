@@ -32,7 +32,7 @@
 extern "C" {
 #endif
 
-struct stroybat_callback_data {
+struct JNI_callback_data {
 	JNIEnv *env;
 	jobject obj;
 };
@@ -62,12 +62,12 @@ smetaObjectFromSmeta(JNIEnv *env, StroybatSmeta *smeta)
 JNIEXPORT jint JNICALL
 Java_com_example_astroybat_MainActivity_getAllSmeta(JNIEnv *env, jobject obj) {
 	// TODO: implement getAllSmeta()
-	struct stroybat_callback_data data;
+	struct JNI_callback_data data;
 	data.env = env;
 	data.obj = obj;
 	stroybat_get_all_smeta(NULL, &data,
 						   [](auto smeta, auto _data, auto error) -> int {
-		struct stroybat_callback_data *data = static_cast<stroybat_callback_data *>(_data);
+		struct JNI_callback_data *data = static_cast<JNI_callback_data *>(_data);
 		JNIEnv *env = data->env;
 		jobject obj	= data->obj;
 			if (error){
