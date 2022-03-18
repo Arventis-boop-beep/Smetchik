@@ -55,31 +55,28 @@ smetaObjectFromSmeta(JNIEnv *env, StroybatSmeta *smeta)
                                  env->NewStringUTF(smeta->obiekt),
                                  env->NewStringUTF(smeta->osnovaniye)
     );
+	free(smeta); //no need any more
 
 	return smetaObject;
 }
 
-JNIEXPORT jint JNICALL
+JNIEXPORT void JNICALL
 Java_com_example_astroybat_MainActivity_getAllSmeta(JNIEnv *env, jobject obj) {
 	// TODO: implement getAllSmeta()
 	struct JNI_callback_data data;
-	data.env = env;
-	data.obj = obj;
+	data.env = env; data.obj = obj;
+
 	stroybat_get_all_smeta(NULL, &data,
-						   [](auto smeta, auto _data, auto error) -> int {
-		struct JNI_callback_data *data = static_cast<JNI_callback_data *>(_data);
-		JNIEnv *env = data->env;
-		jobject obj	= data->obj;
+		[](auto smeta, auto _data, auto error) -> int {
+			struct JNI_callback_data *data = static_cast<JNI_callback_data *>(_data);
+			JNIEnv *env = data->env; jobject obj = data->obj;
 			if (error){
+				//jmethodID error_callback = env->GetMethodID(env->GetObjectClass(obj), "getAllSmetaErrorCallback", "(Ljava/lang/String;)V");
+				//env->CallVoidMethod (obj, error_callback, env->NewStringUTF(error));
+				//free(error);
 			} else {
-				jobject smetaObject = smetaObjectFromSmeta(env, smeta);
-				free(smeta); //no need any more
-
-				jclass MainActivity = env->FindClass("com/example/astroybat/MainActivity");
-				jmethodID getAllSmetaCallback = env->GetMethodID(MainActivity, "getAllSmetaCallback",
-																 "(Lcom/example/astroybat/Smeta;)V");
-
-				env->CallVoidMethod (obj, getAllSmetaCallback, smetaObject);
+				jmethodID callback = env->GetMethodID(env->GetObjectClass(obj), "getAllSmetaCallback", "(Lcom/example/astroybat/Smeta;)V");
+				env->CallVoidMethod (obj, callback, smetaObjectFromSmeta(env, smeta));
 			}
 			return 0;
 		}
@@ -90,10 +87,7 @@ JNIEXPORT jobject JNICALL
 Java_com_example_astroybat_MainActivity_addNewSmeta(JNIEnv* env, jobject obj) {
 
 	auto smeta = stroybat_smeta_new();
-    jobject smetaObject = smetaObjectFromSmeta(env, smeta); 
-	free(smeta); //no need any more
-
-    return smetaObject;
+    return smetaObjectFromSmeta(env, smeta); 
 }
 
 JNIEXPORT jint JNICALL
@@ -106,10 +100,7 @@ JNIEXPORT jobject JNICALL
 Java_com_example_astroybat_SmetaEdit_getSmeta(JNIEnv* env, jobject obj, jstring uuid) {
 
 	auto smeta = stroybat_smeta_with_uuid(env->GetStringUTFChars(uuid, 0));
-    jobject smetaObject = smetaObjectFromSmeta(env, smeta); 
-	free(smeta); //no need any more
-
-    return smetaObject;
+    return smetaObjectFromSmeta(env, smeta); 
 }
 
 
