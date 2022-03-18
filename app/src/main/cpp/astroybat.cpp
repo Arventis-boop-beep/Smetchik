@@ -2,7 +2,7 @@
  * File              : astroybat.cpp
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 28.02.2022
- * Last Modified Date: 17.03.2022
+ * Last Modified Date: 18.03.2022
  * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 // Write C++ code here.
@@ -28,7 +28,15 @@
 #include <jni.h>
 #include <cstdlib>
 
-extern "C"
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+struct stroybat_callback_data {
+	JNIEnv *env;
+	jobject obj;
+};
+
 jobject 
 smetaObjectFromSmeta(JNIEnv *env, StroybatSmeta *smeta)
 {
@@ -51,63 +59,15 @@ smetaObjectFromSmeta(JNIEnv *env, StroybatSmeta *smeta)
 	return smetaObject;
 }
 
-extern "C"
-JNIEXPORT jint JNICALL
-Java_com_example_astroybat_MainActivity_addNewSmeta(JNIEnv* env, jobject obj) {
-
-	auto smeta = stroybat_smeta_new();
-    jobject smetaObject = smetaObjectFromSmeta(env, smeta); 
-	free(smeta); //no need any more
-
-	jclass MainActivity = env->FindClass("com/example/astroybat/MainActivity");
-	jmethodID newSmetaCallback = env->GetMethodID(MainActivity, "addNewSmetaCallback",
-													 "(Lcom/example/astroybat/Smeta;)V");
-
-	env->CallVoidMethod (obj, newSmetaCallback, smetaObject);	
-	
-
-    return 0;
-}
-
-extern "C"
-JNIEXPORT jint JNICALL
-Java_com_example_astroybat_MainActivity_removeSmeta(JNIEnv* env, jobject obj, jstring uuid) {
-
-	return stroybat_smeta_remove_all(env->GetStringUTFChars(uuid, 0));
-}
-
-extern "C"
-JNIEXPORT jint JNICALL
-Java_com_example_astroybat_SmetaEdit_getSmeta(JNIEnv* env, jobject obj, jstring uuid) {
-
-	auto smeta = stroybat_smeta_with_uuid(env->GetStringUTFChars(uuid, 0));
-    jobject smetaObject = smetaObjectFromSmeta(env, smeta); 
-	free(smeta); //no need any more
-
-	jclass MainActivity = env->FindClass("com/example/astroybat/SmetaEdit");
-	jmethodID callback = env->GetMethodID(MainActivity, "getSmetaCallback",
-													 "(Lcom/example/astroybat/Smeta;)V");
-
-	env->CallVoidMethod (obj, callback, smetaObject);	
-
-    return 0;
-}
-
-struct stroybat_get_all_smeta_data {
-	JNIEnv *env;
-	jobject obj;
-};
-
-extern "C"
 JNIEXPORT jint JNICALL
 Java_com_example_astroybat_MainActivity_getAllSmeta(JNIEnv *env, jobject obj) {
 	// TODO: implement getAllSmeta()
-	struct stroybat_get_all_smeta_data data;
+	struct stroybat_callback_data data;
 	data.env = env;
 	data.obj = obj;
 	stroybat_get_all_smeta(NULL, &data,
 						   [](auto smeta, auto _data, auto error) -> int {
-		struct stroybat_get_all_smeta_data *data = static_cast<stroybat_get_all_smeta_data *>(_data);
+		struct stroybat_callback_data *data = static_cast<stroybat_callback_data *>(_data);
 		JNIEnv *env = data->env;
 		jobject obj	= data->obj;
 			if (error){
@@ -125,3 +85,34 @@ Java_com_example_astroybat_MainActivity_getAllSmeta(JNIEnv *env, jobject obj) {
 		}
 	);
 }
+
+JNIEXPORT jobject JNICALL
+Java_com_example_astroybat_MainActivity_addNewSmeta(JNIEnv* env, jobject obj) {
+
+	auto smeta = stroybat_smeta_new();
+    jobject smetaObject = smetaObjectFromSmeta(env, smeta); 
+	free(smeta); //no need any more
+
+    return smetaObject;
+}
+
+JNIEXPORT jint JNICALL
+Java_com_example_astroybat_MainActivity_removeSmeta(JNIEnv* env, jobject obj, jstring uuid) {
+
+	return stroybat_smeta_remove_all(env->GetStringUTFChars(uuid, 0));
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_example_astroybat_SmetaEdit_getSmeta(JNIEnv* env, jobject obj, jstring uuid) {
+
+	auto smeta = stroybat_smeta_with_uuid(env->GetStringUTFChars(uuid, 0));
+    jobject smetaObject = smetaObjectFromSmeta(env, smeta); 
+	free(smeta); //no need any more
+
+    return smetaObject;
+}
+
+
+#ifdef __cplusplus
+}  /* end of the 'extern "C"' block */
+#endif
