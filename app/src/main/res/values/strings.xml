@@ -14,5 +14,13 @@
     <string name="back_to_MainActivity">Назад</string>
     <string name="title_activity_smeta_content_table">smeta_content_table</string>
     <string name="Smeta_title">Новая смета</string>
+    <string name="full_item_title">igjigdjopbmpmdbpomopmopmpobmp</string>
+    <string name="item_title"><u>Название: </u></string>
+    <string name="item_unit"><u>Ед.измерения: </u></string>
+    <string name="item_price"><u>Стоимость(1 ед.): </u></string>
+    <string name="item_amount"><u>Количество: </u></string>
+    <string name="item_overall">Итого: </string>
+    <string name="amount_plus_button">+</string>
+    <string name="amount_minus_button">-</string>
 
 </resources>

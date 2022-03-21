@@ -1,4 +1,4 @@
-package com.example.astroybat;
+package com.example.astroybat.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.example.astroybat.R;
+import com.example.astroybat.classes.Smeta;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private native int getAllSmeta();
-    private native int addNewSmeta();
+    private native Smeta addNewSmeta();
     private native int removeSmeta(String uuid);
 
     ArrayList<String> smeta_titles;
@@ -46,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
         lvMain.setAdapter(adapter);
 
         //Переход в меню сметы: услуги и материалы
-        lvMain.setOnItemClickListener((adapterView, view, i, l) -> {
-            openSmetaContentMenu(i);
-        });
+        lvMain.setOnItemClickListener((adapterView, view, i, l) -> openSmetaContentMenu(i));
 
         //Контекстное меню удалить/редактировать
         registerForContextMenu(lvMain);
@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         //Добавить новую смету
         Button add_button = findViewById(R.id.add_button);
         add_button.setOnClickListener(view -> {
-            addNewSmeta();
+            smetas.add(addNewSmeta());
+            smeta_titles.add(addNewSmeta().title);
             adapter.notifyDataSetChanged();
         });
     }
@@ -103,14 +104,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("uuid", smetas.get(position).uuid);
 
         startActivity(intent);
-    }
-
-    private void addNewSmetaCallback(Smeta smeta){
-        smeta.title = "Новая смета";
-        smeta_titles.add(smeta.title);
-        smetas.add(smeta);
-
-        adapter.notifyDataSetChanged();
     }
 
     void getAllSmetaCallback(Smeta smeta){

@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Astroybat" >
         <activity
-            android:name=".SmetaContentMenu"
+            android:name=".activities.SmetaContentMenu"
             android:exported="false" />
         <activity
-            android:name=".SmetaEdit"
+            android:name=".activities.SmetaEdit"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

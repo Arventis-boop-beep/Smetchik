@@ -6,7 +6,7 @@
   Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 
-package com.example.astroybat;
+package com.example.astroybat.classes;
 
 import android.os.Parcel;
 import android.os.Parcelable;

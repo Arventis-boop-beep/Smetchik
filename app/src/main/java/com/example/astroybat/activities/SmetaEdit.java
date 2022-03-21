@@ -1,4 +1,4 @@
-package com.example.astroybat;
+package com.example.astroybat.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.astroybat.R;
+import com.example.astroybat.classes.Smeta;
+
 
 public class SmetaEdit extends AppCompatActivity {
 
-    private native int getSmeta(String uuid);
+    private native Smeta getSmeta(String uuid);
 
     Button backToMain;
     Button save;
@@ -47,7 +50,7 @@ public class SmetaEdit extends AppCompatActivity {
         save.setOnClickListener(view -> {
             Intent intent = new Intent(this, MainActivity.class);
 
-            getSmeta(uuid);
+            smeta = getSmeta(uuid);
 
             smeta.title = title.getText().toString();
             smeta.zakazchik = zakazchik.getText().toString();
@@ -65,8 +68,5 @@ public class SmetaEdit extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
-    private void getSmetaCallback(Smeta smeta_){
-        smeta = smeta_;
-    }
 }
+

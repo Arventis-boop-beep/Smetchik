@@ -1,21 +1,32 @@
-package com.example.astroybat;
+package com.example.astroybat.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.astroybat.R;
+import com.example.astroybat.classes.Smeta;
+import com.example.astroybat.classes.SmetaContentItem;
+import com.example.astroybat.adapter.contentItemAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SmetaContentMenu extends AppCompatActivity {
 
-    private native int getSmeta(String uuid);
+    private native Smeta getSmeta(String uuid);
 
     Smeta smeta;
     String uuid;
+    ArrayList<SmetaContentItem> items;
 
     Button add_button, back_to_main;
     TextView title;
+    ListView contentView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +36,7 @@ public class SmetaContentMenu extends AppCompatActivity {
         Intent intent = getIntent();
         uuid = intent.getStringExtra("uuid");
 
-        getSmeta(uuid);
+        smeta = getSmeta(uuid);
         title = findViewById(R.id.Smeta_title);
         title.setText(smeta.title);
 
@@ -37,15 +48,14 @@ public class SmetaContentMenu extends AppCompatActivity {
 
         //Назад на главную
         back_to_main = findViewById(R.id.back_to_Main_From_Content);
-        back_to_main.setOnClickListener(view -> {
-            backToMain();
-        });
+        back_to_main.setOnClickListener(view -> backToMain());
 
         //Список
-    }
+        contentView = (ListView) findViewById(R.id.content_lv);
+        items = new ArrayList<>();
+        contentItemAdapter adapter = new contentItemAdapter(this, items);
 
-    private void getSmetaCallback(Smeta smeta_){
-        smeta = smeta_;
+        contentView.setAdapter(adapter);
     }
 
     private void backToMain(){
