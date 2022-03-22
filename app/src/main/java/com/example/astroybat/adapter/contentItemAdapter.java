@@ -44,10 +44,10 @@ public class contentItemAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.content_item_layout, viewGroup, false);
         }
 
-        SmetaContentItem item = (SmetaContentItem) getContentItem(i);
+        SmetaContentItem item = getContentItem(i);
 
-        Button plus = (Button) view.findViewById(R.id.amount_plus);
-        Button minus = (Button) view.findViewById(R.id.amount_minus);
+        Button plus = view.findViewById(R.id.amount_plus);
+        Button minus = view.findViewById(R.id.amount_minus);
 
         TextView full_title = view.findViewById(R.id.full_item_title);
         TextView title = view.findViewById(R.id.item_title);
@@ -83,6 +83,8 @@ public class contentItemAdapter extends BaseAdapter {
 
     private void minusAmount(SmetaContentItem item) {
         item.amount--;
+        if(item.amount < 0)
+            item.amount = 0;
     }
 
     private SmetaContentItem getContentItem(int i){

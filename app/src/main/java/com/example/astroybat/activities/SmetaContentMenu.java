@@ -14,7 +14,6 @@ import com.example.astroybat.classes.SmetaContentItem;
 import com.example.astroybat.adapter.contentItemAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SmetaContentMenu extends AppCompatActivity {
 
@@ -51,7 +50,7 @@ public class SmetaContentMenu extends AppCompatActivity {
         back_to_main.setOnClickListener(view -> backToMain());
 
         //Список
-        contentView = (ListView) findViewById(R.id.content_lv);
+        contentView = findViewById(R.id.content_lv);
         items = new ArrayList<>();
         contentItemAdapter adapter = new contentItemAdapter(this, items);
 
