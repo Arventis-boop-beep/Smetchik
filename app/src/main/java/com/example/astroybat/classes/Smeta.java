@@ -2,7 +2,7 @@
   File              : Smeta.java
   Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
   Date              : 19.02.2022
-  Last Modified Date: 19.02.2022
+  Last Modified Date: 24.03.2022
   Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 
@@ -24,32 +24,32 @@ public class Smeta implements Parcelable {
     public Smeta(
 			String uuid,
 			String title,
-			int date,
+			int    date,
 			String zakazchik,
 			String podriadchik,
 			String raboti,
 			String obiekt,
 			String osnovaniye
 	){
-		this.uuid = uuid;
-		this.title = title;
-		this.date = date;
-		this.zakazchik = zakazchik;
+		this.uuid        = uuid;
+		this.title       = title;
+		this.date        = date;
+		this.zakazchik   = zakazchik;
 		this.podriadchik = podriadchik;
-		this.raboti = raboti;
-		this.obiekt = obiekt;
-		this.osnovaniye = osnovaniye;
+		this.raboti      = raboti;
+		this.obiekt      = obiekt;
+		this.osnovaniye  = osnovaniye;
     }
 
 	protected Smeta(Parcel in) {
-		uuid = in.readString();
-		title = in.readString();
-		date = in.readInt();
-		zakazchik = in.readString();
+		uuid        = in.readString();
+		title       = in.readString();
+		date        = in.readInt();
+		zakazchik   = in.readString();
 		podriadchik = in.readString();
-		raboti = in.readString();
-		obiekt = in.readString();
-		osnovaniye = in.readString();
+		raboti      = in.readString();
+		obiekt      = in.readString();
+		osnovaniye  = in.readString();
 	}
 
 	public static final Creator<Smeta> CREATOR = new Creator<Smeta>() {
