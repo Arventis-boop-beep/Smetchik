@@ -21,7 +21,11 @@ import java.util.ArrayList;
 public class SmetaContentMenu extends AppCompatActivity {
 
     private native Smeta getSmeta(String uuid);
+    native void setStroybat(String filename);
+    native void setStroybatData(String filename);
     native void getAllItemsForSmeta(String smeta_uuid);
+
+    String stroybatDB, stroybatDataDB;
 
     Smeta smeta;
     String uuid;
@@ -39,6 +43,13 @@ public class SmetaContentMenu extends AppCompatActivity {
 
         Intent intent = getIntent();
         uuid = intent.getStringExtra("uuid");
+
+        stroybatDB = "app/src/main/res/raw/stroybat.db";
+        setStroybat(stroybatDB);
+
+        stroybatDataDB = "app/src/main/res/raw/stroybat_data.db";
+        setStroybatData(stroybatDataDB);
+
 
         smeta = getSmeta(uuid);
         title = findViewById(R.id.Smeta_title);
