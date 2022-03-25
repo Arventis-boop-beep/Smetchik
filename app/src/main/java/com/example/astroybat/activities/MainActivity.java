@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import com.example.astroybat.R;
 import com.example.astroybat.classes.Smeta;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private native int getAllSmeta();
     private native Smeta addNewSmeta();
     private native int removeSmeta(String uuid);
+    native void setStroybat(String filename);
+    native void setStroybatData(String filename);
 
     ArrayList<String> smeta_titles;
     ArrayList<Smeta> smetas;
@@ -39,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Resources resources = this.getResources();
+        InputStream stroybatDB = resources.openRawResource(R.raw.stroybat);
+        InputStream stroybatDataDB = resources.openRawResource(R.raw.stroybat_data);
+
 
         //Получение списка смет
         smeta_titles = new ArrayList<>();
