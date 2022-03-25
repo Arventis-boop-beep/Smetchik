@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> smeta_titles;
     ArrayList<Smeta> smetas;
     ArrayAdapter<String> adapter;
+    Smeta new_smeta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +58,20 @@ public class MainActivity extends AppCompatActivity {
         //Добавить новую смету
         Button add_button = findViewById(R.id.add_button);
         add_button.setOnClickListener(view -> {
-            smetas.add(addNewSmeta());
-            smeta_titles.add(addNewSmeta().title);
+            new_smeta = addNewSmeta();
+            smetas.add(new_smeta);
+            smeta_titles.add(new_smeta.title);
             adapter.notifyDataSetChanged();
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.top_menu, menu);
+
+        findViewById(R.id.back_button).setVisibility(View.INVISIBLE);
+        return true;
     }
 
     @Override

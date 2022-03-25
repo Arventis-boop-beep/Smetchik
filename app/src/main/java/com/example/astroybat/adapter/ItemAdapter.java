@@ -9,16 +9,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.astroybat.R;
-import com.example.astroybat.classes.SmetaContentItem;
+import com.example.astroybat.classes.Item;
 
 import java.util.ArrayList;
 
-public class contentItemAdapter extends BaseAdapter {
+public class ItemAdapter extends BaseAdapter {
 
-    private ArrayList<SmetaContentItem> items;
+    private ArrayList<Item> items;
     private LayoutInflater layoutInflater;
 
-    public contentItemAdapter(Context context, ArrayList<SmetaContentItem> items){
+    public ItemAdapter(Context context, ArrayList<Item> items){
         this.items = items;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -44,7 +44,7 @@ public class contentItemAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.content_item_layout, viewGroup, false);
         }
 
-        SmetaContentItem item = getContentItem(i);
+        Item item = getContentItem(i);
 
         Button plus = view.findViewById(R.id.amount_plus);
         Button minus = view.findViewById(R.id.amount_minus);
@@ -56,38 +56,47 @@ public class contentItemAdapter extends BaseAdapter {
         TextView price = view.findViewById(R.id.item_price);
         TextView overall = view.findViewById(R.id.item_overall);
 
+        CharSequence price_s = price.getText();
+
         plus.setOnClickListener(view1 -> {
             plusAmount(item);
+            price.setText(price_s);
+            price.append(Integer.toString(item.count));
             notifyDataSetChanged();
         });
         minus.setOnClickListener(view1 -> {
             minusAmount(item);
+            price.setText(price_s);
+            price.append(Integer.toString(item.count));
             notifyDataSetChanged();
         });
 
         full_title.setText(item.title);
         title.append(item.title);
         unit.append(item.unit);
+
+
+
         price.append(Integer.toString(item.price));
-        amount.append(Integer.toString(item.amount));
-        overall.append(Integer.toString(item.amount * item.price));
+        amount.append(Integer.toString(item.count));
+        overall.append(Integer.toString(item.count * item.price));
 
         notifyDataSetChanged();
 
         return view;
     }
 
-    private void plusAmount(SmetaContentItem item) {
-        item.amount++;
+    private void plusAmount(Item item) {
+        item.count++;
     }
 
-    private void minusAmount(SmetaContentItem item) {
-        item.amount--;
-        if(item.amount < 0)
-            item.amount = 0;
+    private void minusAmount(Item item) {
+        item.count--;
+        if(item.count < 0)
+            item.count = 0;
     }
 
-    private SmetaContentItem getContentItem(int i){
-        return (SmetaContentItem) getItem(i);
+    private Item getContentItem(int i){
+        return (Item) getItem(i);
     }
 }

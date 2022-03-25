@@ -4,28 +4,33 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.astroybat.R;
+import com.example.astroybat.classes.Item;
 import com.example.astroybat.classes.Smeta;
-import com.example.astroybat.classes.SmetaContentItem;
-import com.example.astroybat.adapter.contentItemAdapter;
+import com.example.astroybat.adapter.ItemAdapter;
 
 import java.util.ArrayList;
 
 public class SmetaContentMenu extends AppCompatActivity {
 
     private native Smeta getSmeta(String uuid);
+    native void getAllItemsForSmeta(String smeta_uuid);
 
     Smeta smeta;
     String uuid;
-    ArrayList<SmetaContentItem> items;
+    ArrayList<Item> items;
 
     Button add_button, back_to_main;
     TextView title;
     ListView contentView;
+    ItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,27 +44,48 @@ public class SmetaContentMenu extends AppCompatActivity {
         title = findViewById(R.id.Smeta_title);
         title.setText(smeta.title);
 
+        getAllItemsForSmeta(uuid);
+
         //Добавить услугу/материал
-        add_button = findViewById(R.id.add_new_content);
+        add_button = findViewById(R.id.add_button);
         add_button.setOnClickListener(view -> {
 
         });
 
         //Назад на главную
-        back_to_main = findViewById(R.id.back_to_Main_From_Content);
+        back_to_main = findViewById(R.id.back_button);
         back_to_main.setOnClickListener(view -> backToMain());
 
         //Список
         contentView = findViewById(R.id.content_lv);
         items = new ArrayList<>();
-        contentItemAdapter adapter = new contentItemAdapter(this, items);
+        adapter = new ItemAdapter(this, items);
 
         contentView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.top_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.add_item_menu, menu);
     }
 
     private void backToMain(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    void getAllItemsForSmetaCallback(Item item){
+        items.add(item);
+        adapter.notifyDataSetChanged();
     }
 
 }

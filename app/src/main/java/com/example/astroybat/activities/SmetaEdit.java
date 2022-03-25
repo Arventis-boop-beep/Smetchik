@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -33,7 +34,7 @@ public class SmetaEdit extends AppCompatActivity {
         uuid = intent_.getStringExtra("uuid");
 
         //Кнопка возврата
-        backToMain = findViewById(R.id.back_to_MainActivity);
+        backToMain = findViewById(R.id.back_button);
         backToMain.setOnClickListener(view -> closeSmetaEditActivity());
 
 
@@ -62,6 +63,14 @@ public class SmetaEdit extends AppCompatActivity {
             startActivity(intent);
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.top_menu, menu);
+
+        return true;
     }
 
     private void closeSmetaEditActivity() {

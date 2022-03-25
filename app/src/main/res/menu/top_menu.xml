@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/add_button"
+        android:checkable="false"
+        android:enabled="true"
+        android:title="@string/Add_button"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/back_button"
+        android:icon="@drawable/back_arrow"
+        android:title="@string/back_to_MainActivity"
+        app:showAsAction="ifRoom" />
+
+</menu>
