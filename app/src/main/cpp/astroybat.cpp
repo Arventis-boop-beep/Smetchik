@@ -2,7 +2,7 @@
  * File              : astroybat.cpp
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 28.02.2022
- * Last Modified Date: 22.03.2022
+ * Last Modified Date: 25.03.2022
  * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 // Write C++ code here.
@@ -36,6 +36,18 @@ struct JNI_callback_data {
 	JNIEnv *env;
 	jobject obj;
 };
+
+JNIEXPORT void JNICALL
+Java_com_example_astroybat_activities_MainActivity_setStroybat(JNIEnv *env, jobject obj, jstring filename) 
+{
+	set_stroybat_database(env->GetStringUTFChars(filename, 0));
+}
+
+JNIEXPORT void JNICALL
+Java_com_example_astroybat_activities_MainActivity_setStroybatData(JNIEnv *env, jobject obj, jstring filename) 
+{
+	set_stroybat_data_database(env->GetStringUTFChars(filename, 0));
+}
 
 jobject 
 smetaObjectFromSmeta(JNIEnv *env, StroybatSmeta *smeta)
