@@ -158,22 +158,24 @@ public class MainActivity extends AppCompatActivity {
         Resources resources = this.getResources();
 		
 		File stroybat_database = new File(context.getFilesDir(), "stroybat.db");
-        InputStream stroybatDB = resources.openRawResource(R.raw.stroybat);
-		try {
-			copy(stroybatDB, stroybat_database);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(stroybat_database.exists()){ //don't overwrite file
+		} else {
+			InputStream stroybatDB = resources.openRawResource(R.raw.stroybat);
+			try {
+				copy(stroybatDB, stroybat_database);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		setStroybat(stroybat_database.getPath());
 
 		File stroybat_data_database = new File(context.getFilesDir(), "stroybat_data.db");
-        InputStream stroybatDataDB = resources.openRawResource(R.raw.stroybat_data);		
+		InputStream stroybatDataDB = resources.openRawResource(R.raw.stroybat_data);		
 		try {
 			copy(stroybatDataDB, stroybat_data_database);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		setStroybatData(stroybat_data_database.getPath());
 	}
 
