@@ -1,3 +1,10 @@
+/**
+ * File              : SmetaContentMenu.java
+ * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
+ * Date              : 28.03.2022
+ * Last Modified Date: 28.03.2022
+ * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
+ */
 package com.example.astroybat.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,19 +55,9 @@ public class SmetaContentMenu extends AppCompatActivity {
 
         getAllItemsForSmeta(uuid);
 
-        //Добавить услугу/материал
-        add_button = findViewById(R.id.add_button);
-        add_button.setOnClickListener(view -> {
-
-        });
-
-        //Назад на главную
-        back_to_main = findViewById(R.id.back_button);
-        back_to_main.setOnClickListener(view -> backToMain());
-
         //Список
         contentView = findViewById(R.id.content_lv);
-        items = new ArrayList<>();
+        items = new ArrayList<Item>();
         adapter = new ItemAdapter(this, items);
 
         contentView.setAdapter(adapter);

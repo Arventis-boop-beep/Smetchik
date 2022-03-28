@@ -9,10 +9,4 @@
         android:title="@string/Add_button"
         android:visible="true"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/back_button"
-        android:icon="@drawable/back_arrow"
-        android:title="@string/back_to_MainActivity"
-        app:showAsAction="ifRoom" />
-
 </menu>

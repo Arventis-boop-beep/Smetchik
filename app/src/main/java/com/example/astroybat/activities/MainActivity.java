@@ -20,6 +20,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,38 +49,32 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> smeta_titles;
     ArrayList<Smeta> smetas;
     ArrayAdapter<String> adapter;
-    Smeta new_smeta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //init arrays
+        smeta_titles = new ArrayList<String>();
+		smetas = new ArrayList<Smeta>();
+
+		//init list view
+		ListView lvMain = findViewById(R.id.lv);
+		adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smeta_titles);
+		lvMain.setAdapter(adapter);
+
+		//copy files from resources
 		copyRawFiles();
 
         //Получение списка смет
-		smeta_titles = new ArrayList<>();
 		getAllSmeta();
 
-		ListView lvMain = findViewById(R.id.lv);
-		adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smeta_titles);
-
-		lvMain.setAdapter(adapter);
-
-        //Переход в меню сметы: услуги и материалы
+		//Переход в меню сметы: услуги и материалы
 		lvMain.setOnItemClickListener((adapterView, view, i, l) -> openSmetaContentMenu(i));
 
         //Контекстное меню удалить/редактировать
-        //registerForContextMenu(lvMain);
-
-        //Добавить новую смету
-        //Button add_button = findViewById(R.id.add_button);
-        //add_button.setOnClickListener(view -> {
-            //new_smeta = addNewSmeta();
-            //smetas.add(new_smeta);
-            //smeta_titles.add(new_smeta.title);
-            //adapter.notifyDataSetChanged();
-        //});
+		registerForContextMenu(lvMain);
     }
 
 	@Override
@@ -87,60 +82,76 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.top_menu, menu);
 
-		//findViewById(R.id.back_button).setVisibility(View.INVISIBLE);
 		return true;
 	}
 
-    //@Override
-    //public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        //super.onCreateContextMenu(menu, v, menuInfo);
-        //getMenuInflater().inflate(R.menu.context_menu, menu);
-    //}
+	@Override
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.add_button:
+				addButtonPushed();
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}	
 
-    //@SuppressLint("NonConstantResourceId")
-    //@Override
-    //public boolean onContextItemSelected(@NonNull MenuItem item) {
-        //AdapterView.AdapterContextMenuInfo i = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+	void addButtonPushed() {
+			Smeta new_smeta = addNewSmeta();
+			smetas.add(new_smeta);
+			smeta_titles.add(new_smeta.title);
+			adapter.notifyDataSetChanged();
+	}
 
-        //switch(item.getItemId()){
-            //case R.id.delete:
-                //removeSmeta(smetas.get(i.position).uuid);
-                //smetas.remove(i.position);
-                //smeta_titles.remove(i.position);
-                //adapter.notifyDataSetChanged();
-                //return true;
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		getMenuInflater().inflate(R.menu.context_menu, menu);
+	}
 
-            //case R.id.edit:
-                //openSmetaEditActivity(i);
-                //return true;
+	@SuppressLint("NonConstantResourceId")
+	@Override
+	public boolean onContextItemSelected(@NonNull MenuItem item) {
+		AdapterView.AdapterContextMenuInfo i = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-            //default:
-                //return super.onContextItemSelected(item);
-        //}
-    //}
+		switch(item.getItemId()){
+			case R.id.delete:
+				removeSmeta(smetas.get(i.position).uuid);
+				smetas.remove(i.position);
+				smeta_titles.remove(i.position);
+				adapter.notifyDataSetChanged();
+				return true;
 
-    //private void openSmetaEditActivity(AdapterView.AdapterContextMenuInfo i) {
-        //Intent intent = new Intent(this, SmetaEdit.class);
+			case R.id.edit:
+				openSmetaEditActivity(i);
+				return true;
 
-        //intent.putExtra("uuid", smetas.get(i.position).uuid);
+			default:
+				return super.onContextItemSelected(item);
+		}
+	}
 
-        //startActivity(intent);
-    //}
+	private void openSmetaEditActivity(AdapterView.AdapterContextMenuInfo i) {
+		Intent intent = new Intent(this, SmetaEdit.class);
 
-    //private void openSmetaContentMenu(int position){
-        //Intent intent = new Intent(this, SmetaContentMenu.class);
+		intent.putExtra("uuid", smetas.get(i.position).uuid);
 
-        //intent.putExtra("uuid", smetas.get(position).uuid);
+		startActivity(intent);
+	}
 
-        //startActivity(intent);
-    //}
+	private void openSmetaContentMenu(int position){
+		Intent intent = new Intent(this, SmetaContentMenu.class);
 
-    //void getAllSmetaCallback(Smeta smeta){
-        //smeta_titles.add(smeta.title);
-        //smetas.add(smeta);
+		intent.putExtra("uuid", smetas.get(position).uuid);
 
-        //adapter.notifyDataSetChanged();
-    //}
+		startActivity(intent);
+	}
+
+    void getAllSmetaCallback(Smeta smeta){
+        smeta_titles.add(smeta.title);
+        smetas.add(smeta);
+
+		adapter.notifyDataSetChanged();
+    }
 
 	void copyRawFiles(){
 		Context context = getApplicationContext();
@@ -162,7 +173,8 @@ public class MainActivity extends AppCompatActivity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		setStroybatData(stroybat_data_database.getPath());		
+
+		setStroybatData(stroybat_data_database.getPath());
 	}
 
 	public static void copy(InputStream in, File dst) throws IOException {

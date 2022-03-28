@@ -1,3 +1,10 @@
+/**
+ * File              : SmetaEdit.java
+ * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
+ * Date              : 28.03.2022
+ * Last Modified Date: 28.03.2022
+ * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
+ */
 package com.example.astroybat.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,11 +39,6 @@ public class SmetaEdit extends AppCompatActivity {
 
         Intent intent_ = getIntent();
         uuid = intent_.getStringExtra("uuid");
-
-        //Кнопка возврата
-        backToMain = findViewById(R.id.back_button);
-        backToMain.setOnClickListener(view -> closeSmetaEditActivity());
-
 
         //Кнопка сохранения
         save = findViewById(R.id.save_edited_smeta);
