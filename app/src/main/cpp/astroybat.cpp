@@ -115,6 +115,42 @@ Java_com_example_astroybat_activities_SmetaEdit_getSmeta(JNIEnv* env, jobject ob
     return smetaObjectFromSmeta(env, smeta); 
 }
 
+JNIEXPORT void JNICALL
+Java_com_example_astroybat_activities_MainActivity_setSmetaTitle(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring title) {
+	stroybat_set_smeta_title(env->GetStringUTFChars(smeta_uuid, 0), env->GetStringUTFChars(title, 0));
+}
+
+JNIEXPORT void JNICALL
+Java_com_example_astroybat_activities_MainActivity_setSmetaDate(JNIEnv* env, jobject obj, jstring smeta_uuid, jlong date) {
+	stroybat_set_smeta_date(env->GetStringUTFChars(smeta_uuid, 0), date);
+}
+
+JNIEXPORT void JNICALL
+Java_com_example_astroybat_activities_MainActivity_setSmetaZakazchik(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring zakazchik) {
+	stroybat_set_smeta_zakazchik(env->GetStringUTFChars(smeta_uuid, 0), env->GetStringUTFChars(zakazchik, 0));
+}
+
+JNIEXPORT void JNICALL
+Java_com_example_astroybat_activities_MainActivity_setSmetaPodriadchik(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring podriadchik) {
+	stroybat_set_smeta_podriadchik(env->GetStringUTFChars(smeta_uuid, 0), env->GetStringUTFChars(podriadchik, 0));
+}
+
+JNIEXPORT void JNICALL
+Java_com_example_astroybat_activities_MainActivity_setSmetaRaboti(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring raboti) {
+	stroybat_set_smeta_raboti(env->GetStringUTFChars(smeta_uuid, 0), env->GetStringUTFChars(raboti, 0));
+}
+
+JNIEXPORT void JNICALL
+Java_com_example_astroybat_activities_MainActivity_setSmetaObiekt(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring obiekt) {
+	stroybat_set_smeta_obiekt(env->GetStringUTFChars(smeta_uuid, 0), env->GetStringUTFChars(obiekt, 0));
+}
+
+JNIEXPORT void JNICALL
+Java_com_example_astroybat_activities_MainActivity_setSmetaOsnovaniye(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring osnovaniye) {
+	stroybat_set_smeta_osnovaniye(env->GetStringUTFChars(smeta_uuid, 0), env->GetStringUTFChars(osnovaniye, 0));
+}
+
+
 jobject 
 itemObjectFromItem(JNIEnv *env, StroybatItem *item)
 {
@@ -161,6 +197,11 @@ Java_com_example_astroybat_activities_SmetaContentMenu_getAllItemsForSmeta(JNIEn
 			return 0;
 		}
 	);
+}
+
+JNIEXPORT void JNICALL
+Java_com_example_astroybat_activities_SmetaContentMenu_removeItem(JNIEnv *env, jobject obj, jstring item_uuid) {
+	stroybat_smeta_remove_item(env->GetStringUTFChars(item_uuid, 0));
 }
 
 JNIEXPORT void JNICALL
