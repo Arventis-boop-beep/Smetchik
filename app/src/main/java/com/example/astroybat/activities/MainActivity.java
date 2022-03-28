@@ -1,7 +1,20 @@
+/**
+ * File              : MainActivity.java
+ * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
+ * Date              : 28.03.2022
+ * Last Modified Date: 28.03.2022
+ * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
+ */
 package com.example.astroybat.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
+
+import android.content.Context;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.FileOutputStream;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -15,12 +28,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.astroybat.R;
 import com.example.astroybat.classes.Smeta;
-
-import java.io.InputStream;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,95 +55,126 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Resources resources = this.getResources();
-        InputStream stroybatDB = resources.openRawResource(R.raw.stroybat);
-        InputStream stroybatDataDB = resources.openRawResource(R.raw.stroybat_data);
-
+		copyRawFiles();
 
         //Получение списка смет
-        smeta_titles = new ArrayList<>();
-        getAllSmeta();
+		smeta_titles = new ArrayList<>();
+		getAllSmeta();
 
-        ListView lvMain = findViewById(R.id.lv);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smeta_titles);
+		ListView lvMain = findViewById(R.id.lv);
+		adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smeta_titles);
 
-        lvMain.setAdapter(adapter);
+		lvMain.setAdapter(adapter);
 
         //Переход в меню сметы: услуги и материалы
-        lvMain.setOnItemClickListener((adapterView, view, i, l) -> openSmetaContentMenu(i));
+		lvMain.setOnItemClickListener((adapterView, view, i, l) -> openSmetaContentMenu(i));
 
         //Контекстное меню удалить/редактировать
-        registerForContextMenu(lvMain);
+        //registerForContextMenu(lvMain);
 
         //Добавить новую смету
-        Button add_button = findViewById(R.id.add_button);
-        add_button.setOnClickListener(view -> {
-            new_smeta = addNewSmeta();
-            smetas.add(new_smeta);
-            smeta_titles.add(new_smeta.title);
-            adapter.notifyDataSetChanged();
-        });
+        //Button add_button = findViewById(R.id.add_button);
+        //add_button.setOnClickListener(view -> {
+            //new_smeta = addNewSmeta();
+            //smetas.add(new_smeta);
+            //smeta_titles.add(new_smeta.title);
+            //adapter.notifyDataSetChanged();
+        //});
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.top_menu, menu);
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.top_menu, menu);
 
-        findViewById(R.id.back_button).setVisibility(View.INVISIBLE);
-        return true;
-    }
+		//findViewById(R.id.back_button).setVisibility(View.INVISIBLE);
+		return true;
+	}
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.context_menu, menu);
-    }
+    //@Override
+    //public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        //super.onCreateContextMenu(menu, v, menuInfo);
+        //getMenuInflater().inflate(R.menu.context_menu, menu);
+    //}
 
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        AdapterView.AdapterContextMenuInfo i = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+    //@SuppressLint("NonConstantResourceId")
+    //@Override
+    //public boolean onContextItemSelected(@NonNull MenuItem item) {
+        //AdapterView.AdapterContextMenuInfo i = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch(item.getItemId()){
-            case R.id.delete:
-                removeSmeta(smetas.get(i.position).uuid);
-                smetas.remove(i.position);
-                smeta_titles.remove(i.position);
-                adapter.notifyDataSetChanged();
-                return true;
+        //switch(item.getItemId()){
+            //case R.id.delete:
+                //removeSmeta(smetas.get(i.position).uuid);
+                //smetas.remove(i.position);
+                //smeta_titles.remove(i.position);
+                //adapter.notifyDataSetChanged();
+                //return true;
 
-            case R.id.edit:
-                openSmetaEditActivity(i);
-                return true;
+            //case R.id.edit:
+                //openSmetaEditActivity(i);
+                //return true;
 
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
+            //default:
+                //return super.onContextItemSelected(item);
+        //}
+    //}
 
-    private void openSmetaEditActivity(AdapterView.AdapterContextMenuInfo i) {
-        Intent intent = new Intent(this, SmetaEdit.class);
+    //private void openSmetaEditActivity(AdapterView.AdapterContextMenuInfo i) {
+        //Intent intent = new Intent(this, SmetaEdit.class);
 
-        intent.putExtra("uuid", smetas.get(i.position).uuid);
+        //intent.putExtra("uuid", smetas.get(i.position).uuid);
 
-        startActivity(intent);
-    }
+        //startActivity(intent);
+    //}
 
-    private void openSmetaContentMenu(int position){
-        Intent intent = new Intent(this, SmetaContentMenu.class);
+    //private void openSmetaContentMenu(int position){
+        //Intent intent = new Intent(this, SmetaContentMenu.class);
 
-        intent.putExtra("uuid", smetas.get(position).uuid);
+        //intent.putExtra("uuid", smetas.get(position).uuid);
 
-        startActivity(intent);
-    }
+        //startActivity(intent);
+    //}
 
-    void getAllSmetaCallback(Smeta smeta){
-        smeta_titles.add(smeta.title);
-        smetas.add(smeta);
+    //void getAllSmetaCallback(Smeta smeta){
+        //smeta_titles.add(smeta.title);
+        //smetas.add(smeta);
 
-        adapter.notifyDataSetChanged();
-    }
+        //adapter.notifyDataSetChanged();
+    //}
+
+	void copyRawFiles(){
+		Context context = getApplicationContext();
+        Resources resources = this.getResources();
+		
+		File stroybat_database = new File(context.getFilesDir(), "stroybat.db");
+        InputStream stroybatDB = resources.openRawResource(R.raw.stroybat);
+		try {
+			copy(stroybatDB, stroybat_database);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		setStroybat(stroybat_database.getPath());
+
+		File stroybat_data_database = new File(context.getFilesDir(), "stroybat_data.db");
+        InputStream stroybatDataDB = resources.openRawResource(R.raw.stroybat_data);		
+		try {
+			copy(stroybatDataDB, stroybat_data_database);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		setStroybatData(stroybat_data_database.getPath());		
+	}
+
+	public static void copy(InputStream in, File dst) throws IOException {
+		try (OutputStream out = new FileOutputStream(dst)) {
+			// Transfer bytes from in to out
+			byte[] buf = new byte[1024];
+			int len;
+			while ((len = in.read(buf)) > 0) {
+				out.write(buf, 0, len);
+			}
+		}
+	}	
 }
 
 
