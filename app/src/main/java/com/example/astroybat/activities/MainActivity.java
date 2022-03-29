@@ -1,4 +1,4 @@
-/**
+/*
  * File              : MainActivity.java
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 28.03.2022
@@ -20,14 +20,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //init arrays
-        smeta_titles = new ArrayList<String>();
-		smetas = new ArrayList<Smeta>();
+        smeta_titles = new ArrayList<>();
+		smetas = new ArrayList<>();
 
 		//init list view
 		ListView lvMain = findViewById(R.id.lv);
@@ -87,17 +85,26 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.add_button:
-				addButtonPushed();
-			default:
+		if (item.getItemId() == R.id.add_button) {
+			addButtonPushed();
+		}
+		else{
 				return super.onOptionsItemSelected(item);
 		}
+		return true;
 	}	
 
 	void addButtonPushed() {
 			Smeta new_smeta = addNewSmeta();
 			smetas.add(new_smeta);
+
+			new_smeta.title = "Новая смета";
+			new_smeta.zakazchik = " ";
+			new_smeta.podriadchik = " ";
+			new_smeta.raboti = " ";
+			new_smeta.obiekt = " ";
+			new_smeta.osnovaniye = " ";
+
 			smeta_titles.add(new_smeta.title);
 			adapter.notifyDataSetChanged();
 	}
@@ -105,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		getMenuInflater().inflate(R.menu.context_menu, menu);
+		getMenuInflater().inflate(R.menu.main_activity_context_menu, menu);
 	}
 
 	@SuppressLint("NonConstantResourceId")

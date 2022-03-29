@@ -1,4 +1,4 @@
-/**
+/*
  * File              : SmetaContentMenu.java
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 28.03.2022
@@ -11,9 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,14 +27,13 @@ public class SmetaContentMenu extends AppCompatActivity {
 
     private native Smeta getSmeta(String uuid);
     native void getAllItemsForSmeta(String smeta_uuid);
-
-    String stroybatDB, stroybatDataDB;
+    native void removeItem(String item_uuid);
 
     Smeta smeta;
     String uuid;
     ArrayList<Item> items;
 
-    Button add_button, back_to_main;
+    Button add_button;
     TextView title;
     ListView contentView;
     ItemAdapter adapter;
@@ -46,21 +43,31 @@ public class SmetaContentMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smeta_content_menu);
 
+        //get extra
         Intent intent = getIntent();
         uuid = intent.getStringExtra("uuid");
 
+        //smeta init
         smeta = getSmeta(uuid);
+
+        //Set title
         title = findViewById(R.id.Smeta_title);
         title.setText(smeta.title);
 
+        //Getting items list
         getAllItemsForSmeta(uuid);
 
         //Список
         contentView = findViewById(R.id.content_lv);
-        items = new ArrayList<Item>();
+        items = new ArrayList<>();
         adapter = new ItemAdapter(this, items);
-
         contentView.setAdapter(adapter);
+
+        //add new item
+        add_button = findViewById(R.id.add_button);
+        add_button.setOnClickListener(view -> {
+            openItemListActivity();
+        });
     }
 
     @Override
@@ -71,14 +78,8 @@ public class SmetaContentMenu extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.add_item_menu, menu);
-    }
-
-    private void backToMain(){
-        Intent intent = new Intent(this, MainActivity.class);
+    private void openItemListActivity(){
+        Intent intent = new Intent(this, ItemList.class);
         startActivity(intent);
     }
 

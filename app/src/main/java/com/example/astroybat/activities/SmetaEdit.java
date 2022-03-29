@@ -1,4 +1,4 @@
-/**
+/*
  * File              : SmetaEdit.java
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 28.03.2022
@@ -18,12 +18,21 @@ import android.widget.EditText;
 import com.example.astroybat.R;
 import com.example.astroybat.classes.Smeta;
 
+import java.util.Date;
+import java.sql.Timestamp;
+
 
 public class SmetaEdit extends AppCompatActivity {
 
     private native Smeta getSmeta(String uuid);
+    native void setSmetaTitle(String smeta_uuid, String title);
+    native void setSmetaZakazchik(String smeta_uuid, String zakazchik);
+    native void setSmetaPodryadchik(String smeta_uuid, String podryadchik);
+    native void setSmetaRaboti(String smeta_uuid, String raboti);
+    native void setSmetaObject(String smeta_uuid, String object);
+    native void setSmetaOsnovanie(String smeta_uuid, String osnovanie);
+    native void setSmetaDate(String smeta_uuid, long date);
 
-    Button backToMain;
     Button save;
 
     String uuid;
@@ -40,9 +49,13 @@ public class SmetaEdit extends AppCompatActivity {
         Intent intent_ = getIntent();
         uuid = intent_.getStringExtra("uuid");
 
-        //Кнопка сохранения
+        //smeta init
+        smeta = getSmeta(uuid);
+
+        //save button init
         save = findViewById(R.id.save_edited_smeta);
 
+        //TextEdits init
         title = findViewById(R.id.title);
         zakazchik = findViewById(R.id.zakazchik);
         podryadchik = findViewById(R.id.podryadchik);
@@ -50,21 +63,32 @@ public class SmetaEdit extends AppCompatActivity {
         object = findViewById(R.id.object);
         osnovanie = findViewById(R.id.osnovanie);
 
+        //TextEdits default meanings
+        title.setText(smeta.title);
+        zakazchik.setText(smeta.zakazchik);
+        podryadchik.setText(smeta.podriadchik);
+        raboti.setText(smeta.raboti);
+        object.setText(smeta.obiekt);
+        osnovanie.setText(smeta.osnovaniye);
+
+
+        //save button click
         save.setOnClickListener(view -> {
-            Intent intent = new Intent(this, MainActivity.class);
 
-            smeta = getSmeta(uuid);
+            setSmetaTitle(uuid, title.getText().toString());
+            setSmetaZakazchik(uuid, zakazchik.getText().toString());
+            setSmetaPodryadchik(uuid, podryadchik.getText().toString());
+            setSmetaRaboti(uuid,raboti.getText().toString());
+            setSmetaObject(uuid, object.getText().toString());
+            setSmetaOsnovanie(uuid, osnovanie.getText().toString());
 
-            smeta.title = title.getText().toString();
-            smeta.zakazchik = zakazchik.getText().toString();
-            smeta.podriadchik = podryadchik.getText().toString();
-            smeta.raboti = raboti.getText().toString();
-            smeta.obiekt = object.getText().toString();
-            smeta.osnovaniye = osnovanie.getText().toString();
+            Date date = new Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
 
-            startActivity(intent);
+            setSmetaDate(uuid, timestamp.getTime());
+
+            closeSmetaEditActivity();
         });
-
     }
 
     @Override
