@@ -25,15 +25,20 @@ import java.sql.Timestamp;
 public class SmetaEdit extends AppCompatActivity {
 
     private native Smeta getSmeta(String uuid);
-    native void setSmetaTitle(String smeta_uuid, String title);
-    native void setSmetaZakazchik(String smeta_uuid, String zakazchik);
-    native void setSmetaPodryadchik(String smeta_uuid, String podryadchik);
-    native void setSmetaRaboti(String smeta_uuid, String raboti);
-    native void setSmetaObject(String smeta_uuid, String object);
-    native void setSmetaOsnovanie(String smeta_uuid, String osnovanie);
-    native void setSmetaDate(String smeta_uuid, long date);
 
-    Button save;
+    native void setSmetaTitle(String smeta_uuid, String title);
+
+    native void setSmetaZakazchik(String smeta_uuid, String zakazchik);
+
+    native void setSmetaPodryadchik(String smeta_uuid, String podryadchik);
+
+    native void setSmetaRaboti(String smeta_uuid, String raboti);
+
+    native void setSmetaObject(String smeta_uuid, String object);
+
+    native void setSmetaOsnovanie(String smeta_uuid, String osnovanie);
+
+    native void setSmetaDate(String smeta_uuid, long date);
 
     String uuid;
     Smeta smeta;
@@ -52,9 +57,6 @@ public class SmetaEdit extends AppCompatActivity {
         //smeta init
         smeta = getSmeta(uuid);
 
-        //save button init
-        save = findViewById(R.id.save_edited_smeta);
-
         //TextEdits init
         title = findViewById(R.id.title);
         zakazchik = findViewById(R.id.zakazchik);
@@ -70,25 +72,41 @@ public class SmetaEdit extends AppCompatActivity {
         raboti.setText(smeta.raboti);
         object.setText(smeta.obiekt);
         osnovanie.setText(smeta.osnovaniye);
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
 
-        //save button click
-        save.setOnClickListener(view -> {
+        setSmetaTitle(uuid, title.getText().toString());
+        setSmetaZakazchik(uuid, zakazchik.getText().toString());
+        setSmetaPodryadchik(uuid, podryadchik.getText().toString());
+        setSmetaRaboti(uuid, raboti.getText().toString());
+        setSmetaObject(uuid, object.getText().toString());
+        setSmetaOsnovanie(uuid, osnovanie.getText().toString());
 
-            setSmetaTitle(uuid, title.getText().toString());
-            setSmetaZakazchik(uuid, zakazchik.getText().toString());
-            setSmetaPodryadchik(uuid, podryadchik.getText().toString());
-            setSmetaRaboti(uuid,raboti.getText().toString());
-            setSmetaObject(uuid, object.getText().toString());
-            setSmetaOsnovanie(uuid, osnovanie.getText().toString());
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
 
-            Date date = new Date();
-            Timestamp timestamp = new Timestamp(date.getTime());
+        setSmetaDate(uuid, timestamp.getTime());
+    }
 
-            setSmetaDate(uuid, timestamp.getTime());
+    @Override
+    protected void onPause() {
+        super.onPause();
 
-            closeSmetaEditActivity();
-        });
+        setSmetaTitle(uuid, title.getText().toString());
+        setSmetaZakazchik(uuid, zakazchik.getText().toString());
+        setSmetaPodryadchik(uuid, podryadchik.getText().toString());
+        setSmetaRaboti(uuid, raboti.getText().toString());
+        setSmetaObject(uuid, object.getText().toString());
+        setSmetaOsnovanie(uuid, osnovanie.getText().toString());
+
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+
+        setSmetaDate(uuid, timestamp.getTime());
+
     }
 
     @Override
@@ -97,11 +115,6 @@ public class SmetaEdit extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.top_menu, menu);
 
         return true;
-    }
-
-    private void closeSmetaEditActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 }
 

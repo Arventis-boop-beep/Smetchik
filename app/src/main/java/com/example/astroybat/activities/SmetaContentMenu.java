@@ -7,11 +7,17 @@
  */
 package com.example.astroybat.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,6 +33,7 @@ public class SmetaContentMenu extends AppCompatActivity {
 
     private native Smeta getSmeta(String uuid);
     native void getAllItemsForSmeta(String smeta_uuid);
+
     native void removeItem(String item_uuid);
 
     Smeta smeta;
@@ -65,9 +72,31 @@ public class SmetaContentMenu extends AppCompatActivity {
 
         //add new item
         add_button = findViewById(R.id.add_button);
-        add_button.setOnClickListener(view -> {
-            openItemListActivity();
-        });
+        add_button.setOnClickListener(view -> openItemListActivity(uuid));
+
+        //context menu
+        registerForContextMenu(contentView);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.smeta_content_context_menu, menu);
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo i = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        if(item.getItemId() == R.id.delete_item) {
+            removeItem(items.get(i.position).uuid);
+            adapter.notifyDataSetChanged();
+            return true;
+        }
+        else{
+            return super.onContextItemSelected(item);
+        }
     }
 
     @Override
@@ -78,8 +107,9 @@ public class SmetaContentMenu extends AppCompatActivity {
         return true;
     }
 
-    private void openItemListActivity(){
+    private void openItemListActivity(String uuid){
         Intent intent = new Intent(this, ItemList.class);
+        intent.putExtra("uuid", uuid);
         startActivity(intent);
     }
 
