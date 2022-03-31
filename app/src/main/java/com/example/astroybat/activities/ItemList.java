@@ -22,6 +22,7 @@ public class ItemList extends AppCompatActivity {
     ArrayList<Item> items;
     ArrayList<String> items_titles;
     String uuid;
+    int parent, database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +32,11 @@ public class ItemList extends AppCompatActivity {
         //getExtra uuid
         Intent intent = getIntent();
         uuid = intent.getStringExtra("uuid");
+        parent = intent.getIntExtra("parent", 0);
+        database = intent.getIntExtra("database", 0);
 
         //getting parent == NULL item list
-        getAllItemsFromDatabaseForParent(0, 0);
-        getAllItemsFromDatabaseForParent(-1, 0);
+        getAllItemsFromDatabaseForParent(database, parent);
 
         //list view init
         lvItems = findViewById(R.id.items_list);
@@ -51,15 +53,17 @@ public class ItemList extends AppCompatActivity {
                 backToSmetaContentMenu();
             }
             else {
-                items.clear();
-                getAllItemsFromDatabaseForParent(item.id, item.id);
-                adapter.notifyDataSetChanged();
+                Intent new_intent = new Intent(this, ItemList.class);
+                new_intent.putExtra("uuid", uuid);
+                new_intent.putExtra("database", database);
+                new_intent.putExtra("parent", item.id);
+                startActivity(new_intent);
             }
         });
     }
 
     private void backToSmetaContentMenu(){
-        Intent intent = new Intent(this, SmetaContentMenu.class);
+        Intent intent = getParentActivityIntent();
         startActivity(intent);
     }
 

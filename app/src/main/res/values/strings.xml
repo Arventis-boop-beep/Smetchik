@@ -22,5 +22,6 @@
     <string name="item_overall">Итого: </string>
     <string name="amount_plus_button">+</string>
     <string name="amount_minus_button">-</string>
+    <string name="date">Дата</string>
 
 </resources>

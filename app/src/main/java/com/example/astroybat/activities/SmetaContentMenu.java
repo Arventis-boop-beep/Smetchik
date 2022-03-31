@@ -70,12 +70,38 @@ public class SmetaContentMenu extends AppCompatActivity {
         adapter = new ItemAdapter(this, items);
         contentView.setAdapter(adapter);
 
-        //add new item
-        add_button = findViewById(R.id.add_button);
-        add_button.setOnClickListener(view -> openItemListActivity(uuid));
-
         //context menu
         registerForContextMenu(contentView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.top_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.add_materials:
+                openItemListActivity(uuid, -1, 0);
+                break;
+            case R.id.add_services:
+                openItemListActivity(uuid, 0, 0);
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -99,16 +125,10 @@ public class SmetaContentMenu extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.top_menu, menu);
-
-        return true;
-    }
-
-    private void openItemListActivity(String uuid){
+    private void openItemListActivity(String uuid, int database, int parent){
         Intent intent = new Intent(this, ItemList.class);
+        intent.putExtra("database", database);
+        intent.putExtra("parent", parent);
         intent.putExtra("uuid", uuid);
         startActivity(intent);
     }

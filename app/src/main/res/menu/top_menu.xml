@@ -10,5 +10,16 @@
         android:icon="@android:drawable/ic_input_add"
         android:title="@string/Add_button"
         android:visible="true"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom" >
+
+        <menu>
+            <item
+                android:title="Материалы"
+                android:id="@+id/add_materials"/>
+            <item
+                android:title="Услуги"
+                android:id="@+id/add_services"/>
+        </menu>
+    </item>
+
 </menu>
