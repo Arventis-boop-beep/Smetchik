@@ -192,15 +192,17 @@ Java_com_example_astroybat_activities_SmetaContentMenu_getAllItemsForSmeta(JNIEn
 
 	stroybat_get_items_for_smeta(env->GetStringUTFChars(smeta_uuid, 0), &data,
 		[](auto item, auto _data, auto error) -> int {
-			struct JNI_callback_data *data = static_cast<JNI_callback_data *>(_data);
-			JNIEnv *env = data->env; jobject obj = data->obj;
-			if (error){
-				//jmethodID error_callback = env->GetMethodID(env->GetObjectClass(obj), "getAllSmetaErrorCallback", "(Ljava/lang/String;)V");
-				//env->CallVoidMethod (obj, error_callback, env->NewStringUTF(error));
-				//free(error);
-			} else {
-				jmethodID callback = env->GetMethodID(env->GetObjectClass(obj), "getAllItemsForSmetaCallback", "(Lcom/example/astroybat/classes/Item;)V");
-				env->CallVoidMethod (obj, callback, itemObjectFromItem(env, item));
+			if (_data){
+				struct JNI_callback_data *data = static_cast<JNI_callback_data *>(_data);
+				JNIEnv *env = data->env; jobject obj = data->obj;
+				if (error){
+					//jmethodID error_callback = env->GetMethodID(env->GetObjectClass(obj), "getAllSmetaErrorCallback", "(Ljava/lang/String;)V");
+					//env->CallVoidMethod (obj, error_callback, env->NewStringUTF(error));
+					//free(error);
+				} else {
+					jmethodID callback = env->GetMethodID(env->GetObjectClass(obj), "getAllItemsForSmetaCallback", "(Lcom/example/astroybat/classes/Item;)V");
+					env->CallVoidMethod (obj, callback, itemObjectFromItem(env, item));
+				}
 			}
 			return 0;
 		}
@@ -220,15 +222,17 @@ Java_com_example_astroybat_activities_ItemList_getAllItemsFromDatabaseForParent(
 
 	stroybat_get_all_items_from_database_for_parent(database, parent, &data,
 		[](auto item, auto _data, auto error) -> int {
-			struct JNI_callback_data *data = static_cast<JNI_callback_data *>(_data);
-			JNIEnv *env = data->env; jobject obj = data->obj;
-			if (error){
-				//jmethodID error_callback = env->GetMethodID(env->GetObjectClass(obj), "getAllSmetaErrorCallback", "(Ljava/lang/String;)V");
-				//env->CallVoidMethod (obj, error_callback, env->NewStringUTF(error));
-				//free(error);
-			} else {
-				jmethodID callback = env->GetMethodID(env->GetObjectClass(obj), "getAllItemsFromDatabaseForParentCallback", "(Lcom/example/astroybat/classes/Item;)V");
-				env->CallVoidMethod (obj, callback, itemObjectFromItem(env, item));
+			if (_data){
+				struct JNI_callback_data *data = static_cast<JNI_callback_data *>(_data);
+				JNIEnv *env = data->env; jobject obj = data->obj;
+				if (error){
+					//jmethodID error_callback = env->GetMethodID(env->GetObjectClass(obj), "getAllSmetaErrorCallback", "(Ljava/lang/String;)V");
+					//env->CallVoidMethod (obj, error_callback, env->NewStringUTF(error));
+					//free(error);
+				} else {
+					jmethodID callback = env->GetMethodID(env->GetObjectClass(obj), "getAllItemsFromDatabaseForParentCallback", "(Lcom/example/astroybat/classes/Item;)V");
+					env->CallVoidMethod (obj, callback, itemObjectFromItem(env, item));
+				}
 			}
 			return 0;
 		}
