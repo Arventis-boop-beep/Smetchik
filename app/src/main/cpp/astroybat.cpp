@@ -2,7 +2,7 @@
  * File              : astroybat.cpp
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 28.02.2022
- * Last Modified Date: 28.03.2022
+ * Last Modified Date: 11.04.2022
  * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 // Write C++ code here.
@@ -114,6 +114,14 @@ Java_com_example_astroybat_activities_SmetaEdit_getSmeta(JNIEnv* env, jobject ob
 	auto smeta = stroybat_smeta_with_uuid(env->GetStringUTFChars(uuid, 0));
     return smetaObjectFromSmeta(env, smeta); 
 }
+
+JNIEXPORT jobject JNICALL
+Java_com_example_astroybat_activities_SmetaContentMenu_getSmeta(JNIEnv* env, jobject obj, jstring uuid) {
+
+	auto smeta = stroybat_smeta_with_uuid(env->GetStringUTFChars(uuid, 0));
+    return smetaObjectFromSmeta(env, smeta); 
+}
+
 
 JNIEXPORT void JNICALL
 Java_com_example_astroybat_activities_SmetaEdit_setSmetaTitle(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring title) {
