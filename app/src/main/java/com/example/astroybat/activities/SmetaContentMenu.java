@@ -7,6 +7,7 @@
  */
 package com.example.astroybat.activities;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -72,6 +73,15 @@ public class SmetaContentMenu extends AppCompatActivity {
 
         //context menu
         registerForContextMenu(contentView);
+
+        //bottom back button
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     @Override

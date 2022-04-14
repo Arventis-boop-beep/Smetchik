@@ -1,5 +1,6 @@
 package com.example.astroybat.activities;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -28,6 +29,8 @@ public class ItemList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+
+
 
         //getExtra uuid
         Intent intent = getIntent();
@@ -60,6 +63,15 @@ public class ItemList extends AppCompatActivity {
                 startActivity(new_intent);
             }
         });
+
+        //bottom back button
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     private void backToSmetaContentMenu(){

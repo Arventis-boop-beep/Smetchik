@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class ItemAdapter extends BaseAdapter {
 
-    private ArrayList<Item> items;
-    private LayoutInflater layoutInflater;
+    private final ArrayList<Item> items;
+    private final LayoutInflater layoutInflater;
 
     public ItemAdapter(Context context, ArrayList<Item> items){
         this.items = items;
@@ -74,8 +74,6 @@ public class ItemAdapter extends BaseAdapter {
         full_title.setText(item.title);
         title.append(item.title);
         unit.append(item.unit);
-
-
 
         price.append(Integer.toString(item.price));
         amount.append(Integer.toString(item.count));

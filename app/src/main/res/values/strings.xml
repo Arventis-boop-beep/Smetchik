@@ -23,5 +23,7 @@
     <string name="amount_plus_button">+</string>
     <string name="amount_minus_button">-</string>
     <string name="date">Дата</string>
+    <string name="add_item_materials">Материалы</string>
+    <string name="add_item_services">Услуги</string>
 
 </resources>

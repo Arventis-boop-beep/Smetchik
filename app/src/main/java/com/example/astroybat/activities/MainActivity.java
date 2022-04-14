@@ -27,6 +27,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.astroybat.R;
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 			addButtonPushed();
 		}
 		else{
-				return super.onOptionsItemSelected(item);
+			return super.onOptionsItemSelected(item);
 		}
 		return true;
 	}	
@@ -171,8 +173,7 @@ public class MainActivity extends AppCompatActivity {
         Resources resources = this.getResources();
 		
 		File stroybat_database = new File(context.getFilesDir(), "stroybat.db");
-		if(stroybat_database.exists()){ //don't overwrite file
-		} else {
+		if(!stroybat_database.exists()){ //don't overwrite file
 			InputStream stroybatDB = resources.openRawResource(R.raw.stroybat);
 			try {
 				copy(stroybatDB, stroybat_database);

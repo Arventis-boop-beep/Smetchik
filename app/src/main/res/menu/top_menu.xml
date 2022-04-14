@@ -14,10 +14,10 @@
 
         <menu>
             <item
-                android:title="Материалы"
+                android:title="@string/add_item_materials"
                 android:id="@+id/add_materials"/>
             <item
-                android:title="Услуги"
+                android:title="@string/add_item_services"
                 android:id="@+id/add_services"/>
         </menu>
     </item>

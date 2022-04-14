@@ -10,18 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Astroybat">
         <activity
-            android:name=".activities.ItemList"
-            android:exported="false"
-            android:parentActivityName=".activities.SmetaContentMenu"/>
-        <activity
-            android:name=".activities.SmetaContentMenu"
-            android:exported="false"
-            android:parentActivityName=".activities.MainActivity"/>
-        <activity
-            android:name=".activities.SmetaEdit"
-            android:exported="false"
-            android:parentActivityName=".activities.MainActivity"/>
-        <activity
             android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -29,6 +17,33 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.ItemList"
+            android:exported="false"
+            android:parentActivityName=".activities.SmetaContentMenu">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.astroybat.activities.SmetaContentMenu" />
+        </activity>
+
+        <activity
+            android:name=".activities.SmetaContentMenu"
+            android:exported="false"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.astroybat.activities.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".activities.SmetaEdit"
+            android:exported="false"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.astroybat.activities.MainActivity" />
         </activity>
     </application>
 

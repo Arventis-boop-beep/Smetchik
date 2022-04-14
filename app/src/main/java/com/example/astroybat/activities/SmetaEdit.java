@@ -7,6 +7,7 @@
  */
 package com.example.astroybat.activities;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -86,6 +87,15 @@ public class SmetaEdit extends AppCompatActivity {
         object.addTextChangedListener(new TextEditWatcher("object", object, this));
         osnovanie.addTextChangedListener(new TextEditWatcher("osnovanie", osnovanie, this));
         date.addTextChangedListener(new TextEditWatcher("date", date, this));
+
+        //bottom back button
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
 
     }
 }
