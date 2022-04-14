@@ -2,7 +2,7 @@
  * File              : SmetaContentMenu.java
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 28.03.2022
- * Last Modified Date: 28.03.2022
+ * Last Modified Date: 11.04.2022
  * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 package com.example.astroybat.activities;
