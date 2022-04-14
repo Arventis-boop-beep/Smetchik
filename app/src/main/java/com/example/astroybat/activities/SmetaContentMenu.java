@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,7 +40,6 @@ public class SmetaContentMenu extends AppCompatActivity {
     String uuid;
     ArrayList<Item> items;
 
-    Button add_button;
     TextView title;
     ListView contentView;
     ItemAdapter adapter;
@@ -93,20 +91,21 @@ public class SmetaContentMenu extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.top_menu, menu);
+        getMenuInflater().inflate(R.menu.top_menu_for_content, menu);
 
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.add_materials:
-                openItemListActivity(uuid, -1, 0);
+                openItemListActivity(uuid, -1);
                 break;
             case R.id.add_services:
-                openItemListActivity(uuid, 0, 0);
+                openItemListActivity(uuid, 0);
                 break;
             default:
                 break;
@@ -135,10 +134,10 @@ public class SmetaContentMenu extends AppCompatActivity {
         }
     }
 
-    private void openItemListActivity(String uuid, int database, int parent){
+    private void openItemListActivity(String uuid, int database){
         Intent intent = new Intent(this, ItemList.class);
         intent.putExtra("database", database);
-        intent.putExtra("parent", parent);
+        intent.putExtra("parent", 0);
         intent.putExtra("uuid", uuid);
         startActivity(intent);
     }

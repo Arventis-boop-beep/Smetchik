@@ -40,9 +40,8 @@ public class ItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view == null){
+        if(view == null)
             view = layoutInflater.inflate(R.layout.content_item_layout, viewGroup, false);
-        }
 
         Item item = getContentItem(i);
 

@@ -12,20 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.astroybat.R;
 import com.example.astroybat.classes.Smeta;
 import com.example.astroybat.classes.TextEditWatcher;
-
-import java.util.Date;
-import java.sql.Timestamp;
-
 
 public class SmetaEdit extends AppCompatActivity {
 
