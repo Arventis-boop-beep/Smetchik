@@ -236,6 +236,7 @@ Java_com_example_astroybat_activities_ItemList_getAllItemsFromDatabaseForParent(
 				} else {
 					jmethodID callback = env->GetMethodID(env->GetObjectClass(obj), "getAllItemsFromDatabaseForParentCallback", "(Lcom/example/astroybat/classes/Item;)V");
 					env->CallVoidMethod (obj, callback, itemObjectFromItem(env, item));
+					LOG("ITEM: %s", item->title);
 				}
 			}
 			return 0;

@@ -1,3 +1,10 @@
+/**
+ * File              : ItemList.java
+ * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
+ * Date              : 15.04.2022
+ * Last Modified Date: 15.04.2022
+ * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
+ */
 package com.example.astroybat.activities;
 
 import androidx.activity.OnBackPressedCallback;
@@ -30,13 +37,15 @@ public class ItemList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
 
-
-
         //getExtra uuid
         Intent intent = getIntent();
         uuid = intent.getStringExtra("uuid");
         parent = intent.getIntExtra("parent", 0);
         database = intent.getIntExtra("database", 0);
+
+		//init Arrays
+		items = new ArrayList<Item>();
+		items_titles = new ArrayList<String>();
 
         //getting parent == NULL item list
         getAllItemsFromDatabaseForParent(database, parent);
