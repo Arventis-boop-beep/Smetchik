@@ -25,5 +25,6 @@
     <string name="date">Дата</string>
     <string name="add_item_materials">Материалы</string>
     <string name="add_item_services">Услуги</string>
+    <string name="print">print</string>
 
 </resources>

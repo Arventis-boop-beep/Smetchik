@@ -77,6 +77,11 @@ public class ItemList extends AppCompatActivity {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                Intent parent_intent = getParentActivityIntent();
+                parent_intent.putExtra("uuid", uuid);
+                parent_intent.putExtra("parent", parent);
+                parent_intent.putExtra("database", database);
+
                 finish();
             }
         };

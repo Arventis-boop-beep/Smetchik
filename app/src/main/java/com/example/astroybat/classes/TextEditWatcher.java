@@ -53,6 +53,7 @@ public class TextEditWatcher implements TextWatcher {
             case "date":
                 Date date = (Date) t_edit.getText();
                 smeta_edit.setSmetaDate(smeta_edit.uuid, date.getTime());
+                break;
         }
     }
 }

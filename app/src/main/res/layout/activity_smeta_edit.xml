@@ -1,188 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".activities.SmetaEdit">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/edit_smeta"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_smeta"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:text="@string/title"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
+            android:text="@string/title"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="@string/zakazchik"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/zakazchik"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="@string/zakazchik"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/zakazchik"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.086"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:text="@string/podryadchik"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/podryadchik"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:text="@string/raboti"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/raboti"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:text="@string/object"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/object"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:text="@string/osnovanie"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/osnovanie"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
+            android:text="@string/podryadchik"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/podryadchik"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:text="@string/date"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
+            android:text="@string/raboti"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/raboti"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/title"
-        android:inputType="text"
-        android:layout_width="351dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:autofillHints="Новая смета"
-        tools:ignore="LabelFor" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
+            android:text="@string/object"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/object"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/zakazchik"
-        android:layout_width="351dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        android:autofillHints="Заказчик"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="LabelFor" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
+            android:text="@string/osnovanie"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/osnovanie"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/podryadchik"
-        android:layout_width="351dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="232dp"
-        android:autofillHints="Подрядчик"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="LabelFor" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
+            android:text="@string/date"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/raboti"
-        android:layout_width="351dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="320dp"
-        android:autofillHints="Работы"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="LabelFor" />
+        <EditText
+            android:id="@+id/title"
+            android:inputType="text"
+            android:layout_width="351dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            android:autofillHints="Новая смета"
+            tools:ignore="LabelFor" />
 
-    <EditText
-        android:id="@+id/object"
-        android:layout_width="351dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="412dp"
-        android:autofillHints="Объект"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="LabelFor" />
+        <EditText
+            android:id="@+id/zakazchik"
+            android:layout_width="351dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="140dp"
+            android:autofillHints="Заказчик"
+            android:inputType="text"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="LabelFor" />
 
-    <EditText
-        android:id="@+id/osnovanie"
-        android:layout_width="351dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:autofillHints="Основание"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="LabelFor" />
+        <EditText
+            android:id="@+id/podryadchik"
+            android:layout_width="351dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="232dp"
+            android:autofillHints="Подрядчик"
+            android:inputType="text"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="LabelFor" />
 
-    <EditText
-        android:id="@+id/date"
-        android:layout_width="351dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="588dp"
-        android:autofillHints=""
-        android:inputType="date"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="LabelFor" />
+        <EditText
+            android:id="@+id/raboti"
+            android:layout_width="351dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="320dp"
+            android:autofillHints="Работы"
+            android:inputType="text"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/object"
+            android:layout_width="351dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="412dp"
+            android:autofillHints="Объект"
+            android:inputType="text"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/osnovanie"
+            android:layout_width="351dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="500dp"
+            android:autofillHints="Основание"
+            android:inputType="text"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="351dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="588dp"
+            android:autofillHints=""
+            android:inputType="date"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="LabelFor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

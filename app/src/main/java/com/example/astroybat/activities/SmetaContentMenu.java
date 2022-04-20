@@ -101,6 +101,12 @@ public class SmetaContentMenu extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.print:
+                PrintSmeta(uuid);
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             case R.id.add_materials:
                 openItemListActivity(uuid, -1);
                 break;
@@ -111,6 +117,9 @@ public class SmetaContentMenu extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void PrintSmeta(String uuid) {
     }
 
     @Override
