@@ -10,7 +10,6 @@
         android:id="@+id/full_item_title"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="@string/full_item_title"
         android:textAllCaps="true"
         android:textSize="17sp"
         tools:ignore="MissingConstraints" />

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,7 @@ public class SmetaContentMenu extends AppCompatActivity {
     Smeta smeta;
     String uuid;
     ArrayList<Item> items;
+    private final static String TAG = "SmetaContentMenu";
 
     TextView title;
     ListView contentView;
@@ -47,6 +49,7 @@ public class SmetaContentMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "OnCreate: started.");
         setContentView(R.layout.activity_smeta_content_menu);
 
         //get extra
@@ -66,7 +69,8 @@ public class SmetaContentMenu extends AppCompatActivity {
         //Список
         contentView = findViewById(R.id.content_lv);
         items = new ArrayList<>();
-        adapter = new ItemAdapter(this, items);
+
+        adapter = new ItemAdapter(this, R.layout.content_item_layout, items);
         contentView.setAdapter(adapter);
 
         //context menu
