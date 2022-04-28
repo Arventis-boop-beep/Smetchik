@@ -2,7 +2,7 @@
  * File              : astroybat.cpp
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 28.02.2022
- * Last Modified Date: 15.04.2022
+ * Last Modified Date: 28.04.2022
  * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 // Write C++ code here.
@@ -41,18 +41,6 @@ struct JNI_callback_data {
 	jobject obj;
 };
 
-JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_MainActivity_setStroybat(JNIEnv *env, jobject obj, jstring filename) 
-{
-	set_stroybat_database(env->GetStringUTFChars(filename, 0));
-}
-
-JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_MainActivity_setStroybatData(JNIEnv *env, jobject obj, jstring filename) 
-{
-	set_stroybat_data_database(env->GetStringUTFChars(filename, 0));
-}
-
 jobject 
 smetaObjectFromSmeta(JNIEnv *env, StroybatSmeta *smeta)
 {
@@ -77,12 +65,12 @@ smetaObjectFromSmeta(JNIEnv *env, StroybatSmeta *smeta)
 }
 
 JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_MainActivity_getAllSmeta(JNIEnv *env, jobject obj) {
+Java_com_example_astroybat_activities_MainActivity_getAllSmeta(JNIEnv *env, jobject obj, jstring database) {
 	// TODO: implement getAllSmeta()
 	struct JNI_callback_data data;
 	data.env = env; data.obj = obj;
 
-	stroybat_get_all_smeta(NULL, &data,
+	stroybat_smeta_get_all(env->GetStringUTFChars(database, 0), NULL, &data,
 		[](auto smeta, auto _data, auto error) -> int {
 			struct JNI_callback_data *data = static_cast<JNI_callback_data *>(_data);
 			JNIEnv *env = data->env; jobject obj = data->obj;
@@ -100,68 +88,42 @@ Java_com_example_astroybat_activities_MainActivity_getAllSmeta(JNIEnv *env, jobj
 }
 
 JNIEXPORT jobject JNICALL
-Java_com_example_astroybat_activities_MainActivity_addNewSmeta(JNIEnv* env, jobject obj) {
+Java_com_example_astroybat_activities_MainActivity_addNewSmeta(JNIEnv* env, jobject obj, jstring database) {
 
-	auto smeta = stroybat_smeta_new();
+	auto smeta = stroybat_smeta_new(env->GetStringUTFChars(database, 0));
     return smetaObjectFromSmeta(env, smeta); 
 }
 
 JNIEXPORT jint JNICALL
-Java_com_example_astroybat_activities_MainActivity_removeSmeta(JNIEnv* env, jobject obj, jstring uuid) {
+Java_com_example_astroybat_activities_MainActivity_removeSmeta(JNIEnv* env, jobject obj, jstring database, jstring uuid) {
 
-	return stroybat_smeta_remove_all(env->GetStringUTFChars(uuid, 0));
+	return stroybat_smeta_remove_all(env->GetStringUTFChars(database, 0), env->GetStringUTFChars(uuid, 0));
 }
 
 JNIEXPORT jobject JNICALL
-Java_com_example_astroybat_activities_SmetaEdit_getSmeta(JNIEnv* env, jobject obj, jstring uuid) {
+Java_com_example_astroybat_activities_SmetaEdit_getSmeta(JNIEnv* env, jobject obj, jstring database, jstring uuid) {
 
-	auto smeta = stroybat_smeta_with_uuid(env->GetStringUTFChars(uuid, 0));
+	auto smeta = stroybat_smeta_with_uuid(env->GetStringUTFChars(database, 0), env->GetStringUTFChars(uuid, 0));
     return smetaObjectFromSmeta(env, smeta); 
 }
 
 JNIEXPORT jobject JNICALL
-Java_com_example_astroybat_activities_SmetaContentMenu_getSmeta(JNIEnv* env, jobject obj, jstring uuid) {
+Java_com_example_astroybat_activities_SmetaContentMenu_getSmeta(JNIEnv* env, jobject obj, jstring database, jstring uuid) {
 
-	auto smeta = stroybat_smeta_with_uuid(env->GetStringUTFChars(uuid, 0));
+	auto smeta = stroybat_smeta_with_uuid(env->GetStringUTFChars(database, 0), env->GetStringUTFChars(uuid, 0));
     return smetaObjectFromSmeta(env, smeta); 
 }
 
 
 JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_SmetaEdit_setSmetaTitle(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring title) {
-	stroybat_set_smeta_title(env->GetStringUTFChars(smeta_uuid, 0), env->GetStringUTFChars(title, 0));
+Java_com_example_astroybat_activities_SmetaEdit_smetaSetValueForKey(JNIEnv* env, jobject obj, jstring database, jstring smeta_uuid, jstring value, jstring key) {
+	stroybat_smeta_set_value_for_key(
+			env->GetStringUTFChars(database, 0), 
+			env->GetStringUTFChars(smeta_uuid, 0), 
+			env->GetStringUTFChars(value, 0), 
+			env->GetStringUTFChars(key, 0)
+			);
 }
-
-JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_SmetaEdit_setSmetaDate(JNIEnv* env, jobject obj, jstring smeta_uuid, jlong date) {
-	stroybat_set_smeta_date(env->GetStringUTFChars(smeta_uuid, 0), date);
-}
-
-JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_SmetaEdit_setSmetaZakazchik(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring zakazchik) {
-	stroybat_set_smeta_zakazchik(env->GetStringUTFChars(smeta_uuid, 0), env->GetStringUTFChars(zakazchik, 0));
-}
-
-JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_SmetaEdit_setSmetaPodriadchik(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring podriadchik) {
-	stroybat_set_smeta_podriadchik(env->GetStringUTFChars(smeta_uuid, 0), env->GetStringUTFChars(podriadchik, 0));
-}
-
-JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_SmetaEdit_setSmetaRaboti(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring raboti) {
-	stroybat_set_smeta_raboti(env->GetStringUTFChars(smeta_uuid, 0), env->GetStringUTFChars(raboti, 0));
-}
-
-JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_SmetaEdit_setSmetaObiekt(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring obiekt) {
-	stroybat_set_smeta_obiekt(env->GetStringUTFChars(smeta_uuid, 0), env->GetStringUTFChars(obiekt, 0));
-}
-
-JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_SmetaEdit_setSmetaOsnovaniye(JNIEnv* env, jobject obj, jstring smeta_uuid, jstring osnovaniye) {
-	stroybat_set_smeta_osnovaniye(env->GetStringUTFChars(smeta_uuid, 0), env->GetStringUTFChars(osnovaniye, 0));
-}
-
 
 jobject 
 itemObjectFromItem(JNIEnv *env, StroybatItem *item)
@@ -189,12 +151,12 @@ itemObjectFromItem(JNIEnv *env, StroybatItem *item)
 }
 
 JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_SmetaContentMenu_getAllItemsForSmeta(JNIEnv *env, jobject obj, jstring smeta_uuid) {
+Java_com_example_astroybat_activities_SmetaContentMenu_getAllItemsForSmeta(JNIEnv *env, jobject obj, jstring database, jstring smeta_uuid) {
 	
 	struct JNI_callback_data data;
 	data.env = env; data.obj = obj;
 
-	stroybat_get_items_for_smeta(env->GetStringUTFChars(smeta_uuid, 0), &data,
+	stroybat_smeta_items_get(env->GetStringUTFChars(database, 0), env->GetStringUTFChars(smeta_uuid, 0), &data,
 		[](auto item, auto _data, auto error) -> int {
 			if (_data){
 				struct JNI_callback_data *data = static_cast<JNI_callback_data *>(_data);
@@ -214,17 +176,17 @@ Java_com_example_astroybat_activities_SmetaContentMenu_getAllItemsForSmeta(JNIEn
 }
 
 JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_SmetaContentMenu_removeItem(JNIEnv *env, jobject obj, jstring item_uuid) {
-	stroybat_smeta_remove_item(env->GetStringUTFChars(item_uuid, 0));
+Java_com_example_astroybat_activities_SmetaContentMenu_removeItem(JNIEnv *env, jobject obj, jstring database, jstring item_uuid) {
+	stroybat_smeta_remove_item(env->GetStringUTFChars(database, 0), env->GetStringUTFChars(item_uuid, 0));
 }
 
 JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_ItemList_getAllItemsFromDatabaseForParent(JNIEnv *env, jobject obj, jint database, jint parent) {
+Java_com_example_astroybat_activities_ItemList_getAllItemsFromDatabaseForParent(JNIEnv *env, jobject obj, jstring database, jint data_type, jint parent) {
 	
 	struct JNI_callback_data data;
 	data.env = env; data.obj = obj;
 
-	stroybat_get_all_items_from_database_for_parent(database, parent, &data,
+	stroybat_data_get_for_parent(env->GetStringUTFChars(database, 0), static_cast<STROYBAT_DATA_TYPE>(data_type), parent, &data,
 		[](auto item, auto _data, auto error) -> int {
 			if (_data){
 				struct JNI_callback_data *data = static_cast<JNI_callback_data *>(_data);
@@ -245,7 +207,7 @@ Java_com_example_astroybat_activities_ItemList_getAllItemsFromDatabaseForParent(
 }
 
 JNIEXPORT jobject JNICALL
-Java_com_example_astroybat_activities_ItemList_addItemForSmeta(JNIEnv *env, jobject obj, jobject item_object, jstring smeta_uuid, jint database) {
+Java_com_example_astroybat_activities_ItemList_addItemForSmeta(JNIEnv *env, jobject obj,  jstring database, jobject item_object, jstring smeta_uuid, jint data_type) {
 
     jclass cls = env->GetObjectClass(item_object);   
 
@@ -261,8 +223,8 @@ Java_com_example_astroybat_activities_ItemList_addItemForSmeta(JNIEnv *env, jobj
     jfieldID countID = env->GetFieldID(cls, "count", "I");
     jint count = env->GetIntField(item_object, priceID);	
 
-	StroybatItem *item = stroybat_item_new(NULL, env->GetStringUTFChars(title, 0), env->GetStringUTFChars(unit, 0), price, count, database);
-	stroybat_smeta_add_item(env->GetStringUTFChars(smeta_uuid, 0), item);
+	StroybatItem *item = stroybat_item_new(NULL, env->GetStringUTFChars(title, 0), env->GetStringUTFChars(unit, 0), price, count, static_cast<STROYBAT_DATA_TYPE>(data_type));
+	stroybat_smeta_add_item(env->GetStringUTFChars(database, 0), env->GetStringUTFChars(smeta_uuid, 0), item);
 
 	return itemObjectFromItem(env, item);
 }
