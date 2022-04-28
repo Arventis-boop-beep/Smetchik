@@ -229,6 +229,15 @@ Java_com_example_astroybat_activities_ItemList_addItemForSmeta(JNIEnv *env, jobj
 	return itemObjectFromItem(env, item);
 }
 
+JNIEXPORT void JNICALL
+Java_com_example_astroybat_activities_ItemList_itemSetValueForKey(JNIEnv* env, jobject obj, jstring database, jstring uuid, jstring value, jstring key) {
+	stroybat_item_set_value_for_key(
+			env->GetStringUTFChars(database, 0), 
+			env->GetStringUTFChars(uuid, 0), 
+			env->GetStringUTFChars(value, 0), 
+			env->GetStringUTFChars(key, 0)
+			);
+}
 
 #ifdef __cplusplus
 }  /* end of the 'extern "C"' block */
