@@ -28,6 +28,7 @@ import com.example.astroybat.classes.Item;
 import com.example.astroybat.classes.Smeta;
 import com.example.astroybat.adapter.ItemAdapter;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class SmetaContentMenu extends AppCompatActivity {
@@ -40,6 +41,7 @@ public class SmetaContentMenu extends AppCompatActivity {
     Smeta smeta;
     String uuid;
     ArrayList<Item> items;
+    public String database;
     private final static String TAG = "SmetaContentMenu";
 
     TextView title;
@@ -51,6 +53,8 @@ public class SmetaContentMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "OnCreate: started.");
         setContentView(R.layout.activity_smeta_content_menu);
+
+        database = new File(this.getFilesDir(), "stroybat.db").getPath();
 
         //get extra
         Intent intent = getIntent();

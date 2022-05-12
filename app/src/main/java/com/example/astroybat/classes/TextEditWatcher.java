@@ -31,29 +31,6 @@ public class TextEditWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable editable) {
-        switch (filled_str){
-            case "title":
-                smeta_edit.setSmetaTitle(smeta_edit.uuid, t_edit.getText().toString());
-                break;
-            case "zakazchik":
-                smeta_edit.setSmetaZakazchik(smeta_edit.uuid, t_edit.getText().toString());
-                break;
-            case "podryadchik":
-                smeta_edit.setSmetaPodryadchik(smeta_edit.uuid, t_edit.getText().toString());
-                break;
-            case "raboti":
-                smeta_edit.setSmetaRaboti(smeta_edit.uuid, t_edit.getText().toString());
-                break;
-            case "object":
-                smeta_edit.setSmetaObject(smeta_edit.uuid, t_edit.getText().toString());
-                break;
-            case "osnovanie":
-                smeta_edit.setSmetaOsnovanie(smeta_edit.uuid, t_edit.getText().toString());
-                break;
-            case "date":
-                Date date = (Date) t_edit.getText();
-                smeta_edit.setSmetaDate(smeta_edit.uuid, date.getTime());
-                break;
-        }
+        smeta_edit.setSmetaValueForKey(smeta_edit.database, smeta_edit.uuid, t_edit.getText().toString(), filled_str);
     }
 }

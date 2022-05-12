@@ -1,4 +1,4 @@
-/**
+/*
  * File              : ItemList.java
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 15.04.2022
@@ -18,37 +18,41 @@ import android.widget.ListView;
 import com.example.astroybat.R;
 import com.example.astroybat.classes.Item;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ItemList extends AppCompatActivity {
 
-    native void getAllItemsFromDatabaseForParent(int database, int parent);
-    native Item addItemForSmeta(Item item, String smeta_uuid, int database);
+    native void getAllItemsFromDatabaseForParent(String database, int datatype, int parent);
+    native Item addItemForSmeta(Item item, String database, String smeta_uuid, int datatype);
 
+    public String database;
     ListView lvItems;
     ArrayAdapter<String> adapter;
     ArrayList<Item> items;
     ArrayList<String> items_titles;
     String uuid;
-    int parent, database;
+    int parent, datatype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
 
+        database = new File(this.getFilesDir(), "stroybat.db").getPath();
+
         //getExtra uuid
         Intent intent = getIntent();
         uuid = intent.getStringExtra("uuid");
         parent = intent.getIntExtra("parent", 0);
-        database = intent.getIntExtra("database", 0);
+        datatype = intent.getIntExtra("database", 0);
 
 		//init Arrays
-		items = new ArrayList<Item>();
-		items_titles = new ArrayList<String>();
+		items = new ArrayList<>();
+		items_titles = new ArrayList<>();
 
         //getting parent == NULL item list
-        getAllItemsFromDatabaseForParent(database, parent);
+        getAllItemsFromDatabaseForParent(database, datatype, parent);
 
         //list view init
         lvItems = findViewById(R.id.items_list);
@@ -61,13 +65,13 @@ public class ItemList extends AppCompatActivity {
 
             Item item = items.get(i);
             if(item.id <= 0){
-                addItemForSmeta(item, uuid, item.id);
+                addItemForSmeta(item, database, uuid, item.id);
                 backToSmetaContentMenu();
             }
             else {
                 Intent new_intent = new Intent(this, ItemList.class);
                 new_intent.putExtra("uuid", uuid);
-                new_intent.putExtra("database", database);
+                new_intent.putExtra("database", datatype);
                 new_intent.putExtra("parent", item.id);
                 startActivity(new_intent);
             }
@@ -80,7 +84,7 @@ public class ItemList extends AppCompatActivity {
                 Intent parent_intent = getParentActivityIntent();
                 parent_intent.putExtra("uuid", uuid);
                 parent_intent.putExtra("parent", parent);
-                parent_intent.putExtra("database", database);
+                parent_intent.putExtra("database", datatype);
 
                 finish();
             }

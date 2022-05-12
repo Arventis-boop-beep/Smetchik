@@ -39,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
         System.loadLibrary("astroybat");
     }
 
-    private native int getAllSmeta();
-    private native Smeta addNewSmeta();
-    private native int removeSmeta(String uuid);
-    native void setStroybat(String filename);
-    native void setStroybatData(String filename);
+	String database;
+
+    private native int getAllSmeta(String database);
+    private native Smeta addNewSmeta(String database);
+    private native int removeSmeta(String database, String uuid);
 
     ArrayList<String> smeta_titles;
     ArrayList<Smeta> smetas;
@@ -54,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+		//copy files from resources
+		copyRawFiles();
+
         //init arrays
         smeta_titles = new ArrayList<>();
 		smetas = new ArrayList<>();
@@ -63,11 +66,9 @@ public class MainActivity extends AppCompatActivity {
 		adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smeta_titles);
 		lvMain.setAdapter(adapter);
 
-		//copy files from resources
-		copyRawFiles();
 
         //Получение списка смет
-		getAllSmeta();
+		getAllSmeta(database);
 
 		//Переход в меню сметы: услуги и материалы
 		lvMain.setOnItemClickListener((adapterView, view, i, l) -> openSmetaContentMenu(i));
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 	}	
 
 	void addButtonPushed() {
-			Smeta new_smeta = addNewSmeta();
+			Smeta new_smeta = addNewSmeta(database);
 			smetas.add(new_smeta);
 
 			new_smeta.title = "Новая смета";
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
 		switch(item.getItemId()){
 			case R.id.delete:
-				removeSmeta(smetas.get(i.position).uuid);
+				removeSmeta(database, smetas.get(i.position).uuid);
 				smetas.remove(i.position);
 				smeta_titles.remove(i.position);
 				adapter.notifyDataSetChanged();
@@ -169,10 +170,10 @@ public class MainActivity extends AppCompatActivity {
 
 	void copyRawFiles(){
 		Context context = getApplicationContext();
-        Resources resources = this.getResources();
-		
+		Resources resources = this.getResources();
+
 		File stroybat_database = new File(context.getFilesDir(), "stroybat.db");
-		if(!stroybat_database.exists()){ //don't overwrite file
+		if(!stroybat_database.exists()) { //don't overwrite file
 			InputStream stroybatDB = resources.openRawResource(R.raw.stroybat);
 			try {
 				copy(stroybatDB, stroybat_database);
@@ -180,16 +181,7 @@ public class MainActivity extends AppCompatActivity {
 				e.printStackTrace();
 			}
 		}
-		setStroybat(stroybat_database.getPath());
-
-		File stroybat_data_database = new File(context.getFilesDir(), "stroybat_data.db");
-		InputStream stroybatDataDB = resources.openRawResource(R.raw.stroybat_data);		
-		try {
-			copy(stroybatDataDB, stroybat_data_database);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		setStroybatData(stroybat_data_database.getPath());
+		database = stroybat_database.getPath();
 	}
 
 	public static void copy(InputStream in, File dst) throws IOException {
@@ -201,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
 				out.write(buf, 0, len);
 			}
 		}
-	}	
+	}
 }
 
 
