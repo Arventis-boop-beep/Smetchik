@@ -33,10 +33,10 @@ import java.util.ArrayList;
 
 public class SmetaContentMenu extends AppCompatActivity {
 
-    private native Smeta getSmeta(String uuid);
-    native void getAllItemsForSmeta(String smeta_uuid);
+    private native Smeta getSmeta(String database, String uuid);
+    native void getAllItemsForSmeta(String database, String smeta_uuid);
 
-    native void removeItem(String item_uuid);
+    native void removeItem(String database, String item_uuid);
 
     Smeta smeta;
     String uuid;
@@ -61,14 +61,14 @@ public class SmetaContentMenu extends AppCompatActivity {
         uuid = intent.getStringExtra("uuid");
 
         //smeta init
-        smeta = getSmeta(uuid);
+        smeta = getSmeta(database, uuid);
 
         //Set title
         title = findViewById(R.id.Smeta_title);
         title.setText(smeta.title);
 
         //Getting items list
-        getAllItemsForSmeta(uuid);
+        getAllItemsForSmeta(database, uuid);
 
         //Список
         contentView = findViewById(R.id.content_lv);
@@ -142,7 +142,7 @@ public class SmetaContentMenu extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo i = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         if(item.getItemId() == R.id.delete_item) {
-            removeItem(items.get(i.position).uuid);
+            removeItem(database, items.get(i.position).uuid);
             adapter.notifyDataSetChanged();
             return true;
         }
