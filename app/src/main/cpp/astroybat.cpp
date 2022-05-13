@@ -115,6 +115,16 @@ Java_com_example_astroybat_activities_SmetaContentMenu_getSmeta(JNIEnv* env, job
     return smetaObjectFromSmeta(env, smeta); 
 }
 
+JNIEXPORT jint JNICALL
+Java_com_example_astroybat_activities_SmetaContentMenu_generateXLSX(JNIEnv* env, jobject obj, jstring database, jstring uuid, jstring filepath) {
+	auto smeta = stroybat_smeta_with_uuid(env->GetStringUTFChars(database, 0), env->GetStringUTFChars(uuid, 0));
+	return stroybat_smeta_create_xlsx(
+			env->GetStringUTFChars(database, 0),
+			smeta,
+			env->GetStringUTFChars(filepath, 0)
+			);
+}
+
 
 JNIEXPORT void JNICALL
 Java_com_example_astroybat_activities_SmetaEdit_smetaSetValueForKey(JNIEnv* env, jobject obj, jstring database, jstring smeta_uuid, jstring value, jstring key) {
