@@ -2,7 +2,7 @@
  * File              : astroybat.cpp
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 28.02.2022
- * Last Modified Date: 28.04.2022
+ * Last Modified Date: 13.05.2022
  * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 // Write C++ code here.
@@ -44,6 +44,7 @@ struct JNI_callback_data {
 jobject 
 smetaObjectFromSmeta(JNIEnv *env, StroybatSmeta *smeta)
 {
+	LOG("Get Smeta object from smeta c struct");
     jclass Smeta = env->FindClass("com/example/astroybat/classes/Smeta");
     jmethodID newSmeta = env->GetMethodID(Smeta, "<init>",
             "(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
