@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -29,14 +31,17 @@ import com.example.astroybat.classes.Smeta;
 import com.example.astroybat.adapter.ItemAdapter;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class SmetaContentMenu extends AppCompatActivity {
 
     private native Smeta getSmeta(String database, String uuid);
     native void getAllItemsForSmeta(String database, String smeta_uuid);
-
+    native int generateXLSX(String database, String smeta_uuid, String filepath);
     native void removeItem(String database, String item_uuid);
+    native void getAllItemsFromDatabaseForParent(String database, int data_type, int parent);
 
     Smeta smeta;
     String uuid;
@@ -128,6 +133,34 @@ public class SmetaContentMenu extends AppCompatActivity {
     }
 
     private void PrintSmeta(String uuid) {
+        // TODO: 12.05.2022
+        /* Создать файл в стандартной папке
+        Переписать темплэйтом из ресурсов
+        Запустить JNI функцию для принта
+        Открыть интент этого файла -> setAction setData and Type (есть в телеге)
+         */
+        File table  = new File(getApplicationContext().getFilesDir(), "Template.xlsx");
+        Resources resources = this.getResources();
+
+        if(!table.exists()) { //don't overwrite file
+            InputStream tableIn = resources.openRawResource(R.raw.template);
+            try {
+                MainActivity.copy(tableIn, table);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        generateXLSX(database, uuid, table.getPath());
+
+        Intent intent = new Intent();
+        intent.setAction(android.content.Intent.ACTION_VIEW);
+
+        Uri uri = Uri.parse(table.getAbsolutePath());
+
+        intent.setDataAndType(uri, "application/vnd.ms-excel");
+        startActivity(intent);
+
     }
 
     @Override
@@ -151,9 +184,9 @@ public class SmetaContentMenu extends AppCompatActivity {
         }
     }
 
-    private void openItemListActivity(String uuid, int database){
+    private void openItemListActivity(String uuid, int datatype){
         Intent intent = new Intent(this, ItemList.class);
-        intent.putExtra("database", database);
+        intent.putExtra("datatype", datatype);
         intent.putExtra("parent", 0);
         intent.putExtra("uuid", uuid);
         startActivity(intent);
@@ -165,3 +198,5 @@ public class SmetaContentMenu extends AppCompatActivity {
     }
 
 }
+
+// TODO: 13.05.2022 Вставить и проверить новые jni функции из телеги

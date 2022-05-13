@@ -5,178 +5,117 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".activities.SmetaEdit">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/edit_smeta"
-            android:textSize="28sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:context=".activities.SmetaEdit">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="9dp"
-            android:text="@string/title"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.09"
-            app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/edit_smeta"
+                    android:textSize="30sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="@string/zakazchik"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/zakazchik"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.086"
-            app:layout_constraintStart_toStartOf="parent" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="9dp"
-            android:text="@string/podryadchik"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/podryadchik"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.09"
-            app:layout_constraintStart_toStartOf="parent" />
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="52dp"
+                            android:hint="Имя сметы:"
+                            android:inputType="text"
+                            android:textSize="25sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="9dp"
-            android:text="@string/raboti"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/raboti"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.09"
-            app:layout_constraintStart_toStartOf="parent" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/zakazchik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/title">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="9dp"
-            android:text="@string/object"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/object"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.09"
-            app:layout_constraintStart_toStartOf="parent" />
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Заказчик:"
+                            android:inputType="text"
+                            android:textSize="25sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="9dp"
-            android:text="@string/osnovanie"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/osnovanie"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.09"
-            app:layout_constraintStart_toStartOf="parent" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/podryadchik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/zakazchik">
 
-        <EditText
-            android:id="@+id/title"
-            android:inputType="text"
-            android:layout_width="351dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            android:autofillHints="Новая смета"
-            tools:ignore="LabelFor" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Подрядчик:"
+                    android:inputType="text"
+                    android:textSize="25sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/zakazchik"
-            android:layout_width="351dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
-            android:autofillHints="Заказчик"
-            android:inputType="text"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.533"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:ignore="LabelFor" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/raboti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/podryadchik">
 
-        <EditText
-            android:id="@+id/podryadchik"
-            android:layout_width="351dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="232dp"
-            android:autofillHints="Подрядчик"
-            android:inputType="text"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.533"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:ignore="LabelFor" />
 
-        <EditText
-            android:id="@+id/raboti"
-            android:layout_width="351dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="320dp"
-            android:autofillHints="Работы"
-            android:inputType="text"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.533"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:ignore="LabelFor" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Работы:"
+                    android:inputType="text"
+                    android:textSize="25sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/object"
-            android:layout_width="351dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="412dp"
-            android:autofillHints="Объект"
-            android:inputType="text"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:ignore="LabelFor" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/object"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/raboti">
 
-        <EditText
-            android:id="@+id/osnovanie"
-            android:layout_width="351dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="500dp"
-            android:autofillHints="Основание"
-            android:inputType="text"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:ignore="LabelFor" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Объект:"
+                    android:inputType="text"
+                    android:textSize="25sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/date_button"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/osnovanie"
-            android:text="Дата:">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/osnovanie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/object">
 
-        </Button>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Основание:"
+                    android:inputType="text"
+                    android:textSize="25sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/date_button"
+                    android:layout_width="156dp"
+                    android:layout_height="65dp"
+                    android:text="Дата:"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/osnovanie">
+                </Button>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

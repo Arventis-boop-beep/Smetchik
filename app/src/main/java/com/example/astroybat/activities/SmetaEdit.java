@@ -15,28 +15,29 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.astroybat.R;
 import com.example.astroybat.classes.Smeta;
 import com.example.astroybat.classes.TextEditWatcher;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class SmetaEdit extends AppCompatActivity {
 
     private native Smeta getSmeta(String database, String uuid);
 
-    native public void setSmetaValueForKey(String database, String uuid, String value, String key);
+    native public void smetaSetValueForKey(String database, String smeta_uuid, String value, String key);
 
     public String uuid;
     public Smeta smeta;
 
-    EditText title, zakazchik, podryadchik, raboti, object, osnovanie;
+    TextInputLayout title, zakazchik, podryadchik, raboti, object, osnovanie;
     Button date_button;
 
     public String database;
@@ -64,20 +65,26 @@ public class SmetaEdit extends AppCompatActivity {
         date_button = findViewById(R.id.date_button);
 
         //TextEdits default meanings
-        title.setText(smeta.title);
-        zakazchik.setText(smeta.zakazchik);
-        podryadchik.setText(smeta.podriadchik);
-        raboti.setText(smeta.raboti);
-        object.setText(smeta.obiekt);
-        osnovanie.setText(smeta.osnovaniye);
+        Objects.requireNonNull(title.getEditText()).setText(smeta.title);
+        Objects.requireNonNull(zakazchik.getEditText()).setText(smeta.zakazchik);
+        Objects.requireNonNull(podryadchik.getEditText()).setText(smeta.podriadchik);
+        Objects.requireNonNull(raboti.getEditText()).setText(smeta.raboti);
+        Objects.requireNonNull(object.getEditText()).setText(smeta.obiekt);
+        Objects.requireNonNull(osnovanie.getEditText()).setText(smeta.osnovaniye);
 
         //save after text changed
-        title.addTextChangedListener(new TextEditWatcher("title", title, this));
-        zakazchik.addTextChangedListener(new TextEditWatcher("zakazchik", zakazchik, this));
-        podryadchik.addTextChangedListener(new TextEditWatcher("podryadchik", podryadchik, this));
-        raboti.addTextChangedListener(new TextEditWatcher("raboti", raboti, this));
-        object.addTextChangedListener(new TextEditWatcher("object", object, this));
-        osnovanie.addTextChangedListener(new TextEditWatcher("osnovanie", osnovanie, this));
+        title.getEditText().addTextChangedListener(new TextEditWatcher("title",
+                title.getEditText(), this));
+        zakazchik.getEditText().addTextChangedListener(new TextEditWatcher("zakazchik",
+                zakazchik.getEditText(), this));
+        podryadchik.getEditText().addTextChangedListener(new TextEditWatcher("podryadchik",
+                podryadchik.getEditText(), this));
+        raboti.getEditText().addTextChangedListener(new TextEditWatcher("raboti",
+                raboti.getEditText(), this));
+        object.getEditText().addTextChangedListener(new TextEditWatcher("object",
+                object.getEditText(), this));
+        osnovanie.getEditText().addTextChangedListener(new TextEditWatcher("osnovanie",
+                osnovanie.getEditText(), this));
 
         @SuppressLint("SimpleDateFormat") DateFormat dateformat = new SimpleDateFormat("dd:MM:yyyy");
         Date date = new Date(smeta.date * 1000L);
@@ -88,7 +95,7 @@ public class SmetaEdit extends AppCompatActivity {
         date_button.setOnClickListener(view -> new DatePickerDialog(this, (datePicker, i, i1, i2) -> {
             calendar.set(i, i1, i2);
             date_button.setText(dateformat.format(calendar.getTime()));
-            setSmetaValueForKey(database, uuid, "" + calendar.getTime().getTime()/1000,"date");
+            smetaSetValueForKey(database, uuid, "" + calendar.getTime().getTime()/1000,"date");
         },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -106,3 +113,4 @@ public class SmetaEdit extends AppCompatActivity {
     }
 }
 
+// TODO: 12.05.2022 Заменить textedit на textinputlayout

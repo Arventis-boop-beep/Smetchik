@@ -8,10 +8,13 @@
 package com.example.astroybat.activities;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -24,15 +27,15 @@ import java.util.ArrayList;
 public class ItemList extends AppCompatActivity {
 
     native void getAllItemsFromDatabaseForParent(String database, int datatype, int parent);
-    native Item addItemForSmeta(Item item, String database, String smeta_uuid, int datatype);
+    native Item addItemForSmeta(String database, Item item, String smeta_uuid, int data_type);
 
-    public String database;
     ListView lvItems;
     ArrayAdapter<String> adapter;
     ArrayList<Item> items;
     ArrayList<String> items_titles;
     String uuid;
     int parent, datatype;
+    public String database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class ItemList extends AppCompatActivity {
         Intent intent = getIntent();
         uuid = intent.getStringExtra("uuid");
         parent = intent.getIntExtra("parent", 0);
-        datatype = intent.getIntExtra("database", 0);
+        datatype = intent.getIntExtra("datatype", 0);
 
 		//init Arrays
 		items = new ArrayList<>();
@@ -65,7 +68,7 @@ public class ItemList extends AppCompatActivity {
 
             Item item = items.get(i);
             if(item.id <= 0){
-                addItemForSmeta(item, database, uuid, item.id);
+                addItemForSmeta(database, item, uuid, item.id);
                 backToSmetaContentMenu();
             }
             else {
@@ -91,6 +94,20 @@ public class ItemList extends AppCompatActivity {
         };
         this.getOnBackPressedDispatcher().addCallback(this, callback);
     }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+        else{
+        return super.onOptionsItemSelected(item);
+    }
+    }
+
 
     private void backToSmetaContentMenu(){
         Intent intent = getParentActivityIntent();

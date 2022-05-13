@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
 	String database;
 
-    private native int getAllSmeta(String database);
+    private native void getAllSmeta(String database);
     private native Smeta addNewSmeta(String database);
     private native int removeSmeta(String database, String uuid);
 

@@ -108,5 +108,4 @@ public class ItemAdapter extends ArrayAdapter<Item>{
     }
 }
 
-
-
+// TODO: 13.05.2022 Переделать вывод параметров айтема, вывод изменения количества кнопками

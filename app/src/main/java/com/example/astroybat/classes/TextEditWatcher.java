@@ -6,16 +6,14 @@ import android.widget.EditText;
 
 import com.example.astroybat.activities.SmetaEdit;
 
-import java.util.Date;
-
 public class TextEditWatcher implements TextWatcher {
 
-    String filled_str;
+    String key;
     EditText t_edit;
     SmetaEdit smeta_edit;
 
-    public TextEditWatcher(String filled_str, EditText t_edit, SmetaEdit smeta_edit){
-        this.filled_str = filled_str;
+    public TextEditWatcher(String key, EditText t_edit, SmetaEdit smeta_edit){
+        this.key = key;
         this.t_edit =  t_edit;
         this.smeta_edit = smeta_edit;
     }
@@ -31,6 +29,6 @@ public class TextEditWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable editable) {
-        smeta_edit.setSmetaValueForKey(smeta_edit.database, smeta_edit.uuid, t_edit.getText().toString(), filled_str);
+        smeta_edit.smetaSetValueForKey(smeta_edit.database, smeta_edit.uuid, t_edit.getText().toString(), key);
     }
 }
