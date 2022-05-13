@@ -2,7 +2,7 @@
  * File              : SmetaContentMenu.java
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 28.03.2022
- * Last Modified Date: 11.04.2022
+ * Last Modified Date: 14.05.2022
  * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 package com.example.astroybat.activities;
@@ -72,15 +72,14 @@ public class SmetaContentMenu extends AppCompatActivity {
         title = findViewById(R.id.Smeta_title);
         title.setText(smeta.title);
 
-        //Getting items list
-        getAllItemsForSmeta(database, uuid);
-
         //Список
         contentView = findViewById(R.id.content_lv);
         items = new ArrayList<>();
-
         adapter = new ItemAdapter(this, R.layout.content_item_layout, items);
         contentView.setAdapter(adapter);
+        
+		//Getting items list
+        getAllItemsForSmeta(database, uuid);
 
         //context menu
         registerForContextMenu(contentView);
