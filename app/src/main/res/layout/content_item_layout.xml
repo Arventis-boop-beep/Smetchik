@@ -1,91 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/full_item_title"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textAllCaps="true"
-        android:textSize="17sp"
-        tools:ignore="MissingConstraints" />
+        android:textStyle="italic"/>
 
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/item_title"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/item_title"
-        android:textSize="25sp"
-
-        tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@+id/full_item_title"
-        android:autofillHints="" />
-
-    <TextView
-        android:id="@+id/item_unit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/item_unit"
-        android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@+id/item_title"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/item_price"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/item_price"
-        android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@+id/item_unit"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/item_amount"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/item_amount"
-        android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@+id/item_price"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="58dp" />
-
-    <TextView
-        android:id="@+id/item_overall"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/item_overall"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/item_amount"
-        tools:layout_editor_absoluteX="-16dp" />
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/amount_plus"
-        android:layout_width="60dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/amount_plus_button"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.891"
-        app:layout_constraintStart_toStartOf="@+id/item_amount"
-        app:layout_constraintTop_toBottomOf="@+id/item_price" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start|center_vertical"
+            android:hint="@string/item_title"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/amount_minus"
-        android:layout_width="60dp"
-        android:layout_height="45dp"
-        android:text="@string/amount_minus_button"
-        android:layout_marginTop="4dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.683"
-        app:layout_constraintStart_toStartOf="@+id/item_amount"
-        app:layout_constraintTop_toBottomOf="@+id/item_price" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/item_unit"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/item_unit"
+            android:inputType="text"
+            android:gravity="start|center_vertical"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:layout_weight="1"
+            tools:ignore="SpeakableTextPresentCheck"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/item_price"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/item_price"
+            android:inputType="number"
+            android:gravity="start|center_vertical"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:layout_weight="1"
+            tools:ignore="SpeakableTextPresentCheck"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/item_amount"
+        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/item_amount"
+            android:inputType="number"
+            android:gravity="start|center_vertical"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:layout_weight="1"
+            tools:ignore="SpeakableTextPresentCheck"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/amount_plus"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="30dp"
+            android:backgroundTint="#03A9F4"
+            android:text="@string/amount_plus_button"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/amount_minus"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="#673AB7"
+            android:text="@string/amount_minus_button"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/item_overall"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/item_overall"
+            android:inputType="number"
+            android:gravity="start|center_vertical"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:layout_weight="1"
+            tools:ignore="SpeakableTextPresentCheck"
+            android:layout_marginBottom="20dp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

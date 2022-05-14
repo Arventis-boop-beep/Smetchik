@@ -74,7 +74,7 @@ public class ItemList extends AppCompatActivity {
             else {
                 Intent new_intent = new Intent(this, ItemList.class);
                 new_intent.putExtra("uuid", uuid);
-                new_intent.putExtra("database", datatype);
+                new_intent.putExtra("datatype", datatype);
                 new_intent.putExtra("parent", item.id);
                 startActivity(new_intent);
             }
@@ -87,7 +87,7 @@ public class ItemList extends AppCompatActivity {
                 Intent parent_intent = getParentActivityIntent();
                 parent_intent.putExtra("uuid", uuid);
                 parent_intent.putExtra("parent", parent);
-                parent_intent.putExtra("database", datatype);
+                parent_intent.putExtra("datatype", datatype);
 
                 finish();
             }

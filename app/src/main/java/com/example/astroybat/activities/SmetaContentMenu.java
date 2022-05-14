@@ -41,7 +41,6 @@ public class SmetaContentMenu extends AppCompatActivity {
     native void getAllItemsForSmeta(String database, String smeta_uuid);
     native int generateXLSX(String database, String smeta_uuid, String filepath);
     native void removeItem(String database, String item_uuid);
-    native void getAllItemsFromDatabaseForParent(String database, int data_type, int parent);
 
     Smeta smeta;
     String uuid;
@@ -51,7 +50,7 @@ public class SmetaContentMenu extends AppCompatActivity {
 
     TextView title;
     ListView contentView;
-    ItemAdapter adapter;
+    public ItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +137,7 @@ public class SmetaContentMenu extends AppCompatActivity {
         Запустить JNI функцию для принта
         Открыть интент этого файла -> setAction setData and Type (есть в телеге)
          */
-        File table  = new File(getApplicationContext().getFilesDir(), "Template.xlsx");
+        File table  = new File(getApplicationContext().getFilesDir(), "template.xlsx");
         Resources resources = this.getResources();
 
         if(!table.exists()) { //don't overwrite file

@@ -6,13 +6,13 @@ import android.widget.EditText;
 
 import com.example.astroybat.activities.SmetaEdit;
 
-public class TextEditWatcher implements TextWatcher {
+public class TextEditWatcher_SmetaEdit implements TextWatcher {
 
     String key;
     EditText t_edit;
     SmetaEdit smeta_edit;
 
-    public TextEditWatcher(String key, EditText t_edit, SmetaEdit smeta_edit){
+    public TextEditWatcher_SmetaEdit(String key, EditText t_edit, SmetaEdit smeta_edit){
         this.key = key;
         this.t_edit =  t_edit;
         this.smeta_edit = smeta_edit;

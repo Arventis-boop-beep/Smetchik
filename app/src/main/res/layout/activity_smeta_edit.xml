@@ -22,99 +22,131 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/title"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/textView">
+                    app:layout_constraintTop_toBottomOf="@+id/date_button">
 
-                        <EditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="52dp"
                             android:hint="Имя сметы:"
                             android:inputType="text"
-                            android:textSize="25sp" />
+                            android:gravity="start|center_vertical"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:layout_weight="1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/zakazchik"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/title">
+                    app:layout_constraintTop_toBottomOf="@+id/title"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                        <EditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Заказчик:"
                             android:inputType="text"
-                            android:textSize="25sp"/>
+                            android:gravity="start|center_vertical"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:layout_weight="1"
+                            tools:ignore="SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/podryadchik"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/zakazchik">
+                    app:layout_constraintTop_toBottomOf="@+id/zakazchik"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Подрядчик:"
-                    android:inputType="text"
-                    android:textSize="25sp"/>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Подрядчик:"
+                            android:inputType="text"
+                            android:gravity="start|center_vertical"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:layout_weight="1"
+                            tools:ignore="SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/raboti"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/podryadchik">
+                    app:layout_constraintTop_toBottomOf="@+id/podryadchik"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Работы:"
-                    android:inputType="text"
-                    android:textSize="25sp"/>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Работы:"
+                            android:inputType="text"
+                            android:gravity="start|center_vertical"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:layout_weight="1"
+                            tools:ignore="SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/object"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/raboti">
+                    app:layout_constraintTop_toBottomOf="@+id/raboti"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Объект:"
-                    android:inputType="text"
-                    android:textSize="25sp"/>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Объект:"
+                            android:inputType="text"
+                            android:gravity="start|center_vertical"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:layout_weight="1"
+                            tools:ignore="SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/osnovanie"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/object">
+                    app:layout_constraintTop_toBottomOf="@+id/object"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Основание:"
-                    android:inputType="text"
-                    android:textSize="25sp"/>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Основание:"
+                            android:inputType="text"
+                            android:gravity="start|center_vertical"
+                            android:imeOptions="actionDone"
+                            android:singleLine="true"
+                            android:layout_weight="1"
+                            tools:ignore="SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/date_button"
                     android:layout_width="156dp"
-                    android:layout_height="65dp"
-                    android:text="Дата:"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="Установите дату"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/osnovanie">
+                    app:layout_constraintTop_toBottomOf="@+id/textView">
+
                 </Button>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

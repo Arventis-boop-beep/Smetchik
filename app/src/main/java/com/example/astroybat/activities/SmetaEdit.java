@@ -18,7 +18,7 @@ import android.widget.Button;
 
 import com.example.astroybat.R;
 import com.example.astroybat.classes.Smeta;
-import com.example.astroybat.classes.TextEditWatcher;
+import com.example.astroybat.classes.TextEditWatcher_SmetaEdit;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
@@ -73,17 +73,17 @@ public class SmetaEdit extends AppCompatActivity {
         Objects.requireNonNull(osnovanie.getEditText()).setText(smeta.osnovaniye);
 
         //save after text changed
-        title.getEditText().addTextChangedListener(new TextEditWatcher("title",
+        title.getEditText().addTextChangedListener(new TextEditWatcher_SmetaEdit("title",
                 title.getEditText(), this));
-        zakazchik.getEditText().addTextChangedListener(new TextEditWatcher("zakazchik",
+        zakazchik.getEditText().addTextChangedListener(new TextEditWatcher_SmetaEdit("zakazchik",
                 zakazchik.getEditText(), this));
-        podryadchik.getEditText().addTextChangedListener(new TextEditWatcher("podryadchik",
+        podryadchik.getEditText().addTextChangedListener(new TextEditWatcher_SmetaEdit("podryadchik",
                 podryadchik.getEditText(), this));
-        raboti.getEditText().addTextChangedListener(new TextEditWatcher("raboti",
+        raboti.getEditText().addTextChangedListener(new TextEditWatcher_SmetaEdit("raboti",
                 raboti.getEditText(), this));
-        object.getEditText().addTextChangedListener(new TextEditWatcher("object",
+        object.getEditText().addTextChangedListener(new TextEditWatcher_SmetaEdit("object",
                 object.getEditText(), this));
-        osnovanie.getEditText().addTextChangedListener(new TextEditWatcher("osnovanie",
+        osnovanie.getEditText().addTextChangedListener(new TextEditWatcher_SmetaEdit("osnovanie",
                 osnovanie.getEditText(), this));
 
         @SuppressLint("SimpleDateFormat") DateFormat dateformat = new SimpleDateFormat("dd:MM:yyyy");

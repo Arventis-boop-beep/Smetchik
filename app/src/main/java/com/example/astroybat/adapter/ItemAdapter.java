@@ -2,6 +2,8 @@ package com.example.astroybat.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +16,10 @@ import androidx.annotation.Nullable;
 
 import com.example.astroybat.R;
 import com.example.astroybat.classes.Item;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ItemAdapter extends ArrayAdapter<Item>{
 
@@ -40,12 +44,7 @@ public class ItemAdapter extends ArrayAdapter<Item>{
         return items.get(i);
     }
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @SuppressLint("ViewHolder")
+    @SuppressLint({"ViewHolder", "SetTextI18n"})
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -53,40 +52,81 @@ public class ItemAdapter extends ArrayAdapter<Item>{
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
-        Item item = getContentItem(position);
+        //getting item
+        Item item = getItem(position);
 
+        //buttons init
         Button plus = convertView.findViewById(R.id.amount_plus);
         Button minus = convertView.findViewById(R.id.amount_minus);
 
+        //text fields init
         TextView full_title = convertView.findViewById(R.id.full_item_title);
-        TextView title = convertView.findViewById(R.id.item_title);
-        TextView unit = convertView.findViewById(R.id.item_unit);
-        TextView amount = convertView.findViewById(R.id.item_amount);
-        TextView price = convertView.findViewById(R.id.item_price);
-        TextView overall = convertView.findViewById(R.id.item_overall);
+        TextInputLayout title = convertView.findViewById(R.id.item_title);
+        TextInputLayout unit = convertView.findViewById(R.id.item_unit);
+        TextInputLayout amount = convertView.findViewById(R.id.item_amount);
+        TextInputLayout price = convertView.findViewById(R.id.item_price);
+        TextInputLayout overall = convertView.findViewById(R.id.item_overall);
 
-        CharSequence price_s = price.getText();
-
+        //on click listeners init
         plus.setOnClickListener(view1 -> {
             plusAmount(item);
-            price.setText(price_s);
-            price.append(Integer.toString(item.count));
+            Objects.requireNonNull(price.getEditText()).setText(Integer.toString(item.count));
             notifyDataSetChanged();
         });
         minus.setOnClickListener(view1 -> {
             minusAmount(item);
-            price.setText(price_s);
-            price.append(Integer.toString(item.count));
+            Objects.requireNonNull(price.getEditText()).setText(Integer.toString(item.count));
             notifyDataSetChanged();
         });
 
         full_title.setText(item.title);
 
-        title.append(item.title);
-        unit.append(item.unit);
-        price.append(Integer.toString(item.price));
-        amount.append(Integer.toString(item.count));
-        overall.append(Integer.toString(item.count * item.price));
+        Objects.requireNonNull(title.getEditText()).setText(item.title);
+        Objects.requireNonNull(unit.getEditText()).setText(item.unit);
+        Objects.requireNonNull(price.getEditText()).setText(Integer.toString(item.price));
+        Objects.requireNonNull(amount.getEditText()).setText(Integer.toString(item.count));
+        Objects.requireNonNull(overall.getEditText()).setText(Integer.toString(item.count * item.price));
+
+        amount.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                notifyDataSetChanged();
+            }
+        });
+        price.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                notifyDataSetChanged();
+            }
+        });
+        overall.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                notifyDataSetChanged();
+            }
+        });
+        title.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                notifyDataSetChanged();
+            }
+        });
 
         return convertView;
     }
@@ -102,10 +142,4 @@ public class ItemAdapter extends ArrayAdapter<Item>{
             item.count = 0;
         notifyDataSetChanged();
     }
-
-    private Item getContentItem(int i){
-        return (Item) getItem(i);
-    }
 }
-
-// TODO: 13.05.2022 Переделать вывод параметров айтема, вывод изменения количества кнопками
