@@ -2,7 +2,7 @@
  * File              : SmetaContentMenu.java
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 28.03.2022
- * Last Modified Date: 14.05.2022
+ * Last Modified Date: 16.05.2022
  * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 package com.example.astroybat.activities;
@@ -137,17 +137,17 @@ public class SmetaContentMenu extends AppCompatActivity {
         Запустить JNI функцию для принта
         Открыть интент этого файла -> setAction setData and Type (есть в телеге)
          */
-        File table  = new File(getApplicationContext().getFilesDir(), "template.xlsx");
+        File table  = new File(getApplicationContext().getFilesDir(), "output.xlsx");
         Resources resources = this.getResources();
 
-        if(!table.exists()) { //don't overwrite file
+        //if(!table.exists()) { //don't overwrite file
             InputStream tableIn = resources.openRawResource(R.raw.template);
             try {
                 MainActivity.copy(tableIn, table);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        //}
 
         generateXLSX(database, uuid, table.getPath());
 
