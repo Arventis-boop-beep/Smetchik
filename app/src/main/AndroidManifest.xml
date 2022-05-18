@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.astroybat">
+
+    <permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+        </intent>
+
+        <package android:name="com.___.___" />
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -45,6 +55,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.astroybat.activities.MainActivity" />
         </activity>
+
     </application>
 
 </manifest>

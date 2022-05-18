@@ -10,9 +10,11 @@ package com.example.astroybat.activities;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import android.widget.TextView;
 
 import com.example.astroybat.R;
 import com.example.astroybat.classes.Item;
+import com.example.astroybat.classes.PrintAlert;
 import com.example.astroybat.classes.Smeta;
 import com.example.astroybat.adapter.ItemAdapter;
 
@@ -41,12 +44,18 @@ public class SmetaContentMenu extends AppCompatActivity {
     native void getAllItemsForSmeta(String database, String smeta_uuid);
     native int generateXLSX(String database, String smeta_uuid, String filepath);
     native void removeItem(String database, String item_uuid);
+    public static native void itemSetValueForKey(String database, String item_uuid, String value, String key);
 
     Smeta smeta;
     String uuid;
     ArrayList<Item> items;
-    public String database;
+    public static String database;
     private final static String TAG = "SmetaContentMenu";
+
+    //for installation check
+    String packageName;//replace the string with your app package name you want to check
+    PackageManager packageManager;
+    //
 
     TextView title;
     ListView contentView;
@@ -131,34 +140,38 @@ public class SmetaContentMenu extends AppCompatActivity {
     }
 
     private void PrintSmeta(String uuid) {
-        // TODO: 12.05.2022
-        /* Создать файл в стандартной папке
-        Переписать темплэйтом из ресурсов
-        Запустить JNI функцию для принта
-        Открыть интент этого файла -> setAction setData and Type (есть в телеге)
-         */
-        File table  = new File(getApplicationContext().getFilesDir(), "output.xlsx");
-        Resources resources = this.getResources();
 
-        //if(!table.exists()) { //don't overwrite file
+        packageManager = getPackageManager();
+        packageName = "com.microsoft.office.excel";
+        // TODO: 18.05.2022 Определить имя пакета для открытия эксель-таблиц
+
+        if(isPackageInstalled(packageName, packageManager)) {
+
+            File table = new File(getApplicationContext().getFilesDir(), "output.xlsx");
+            Resources resources = this.getResources();
+
             InputStream tableIn = resources.openRawResource(R.raw.template);
             try {
                 MainActivity.copy(tableIn, table);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        //}
 
-        generateXLSX(database, uuid, table.getPath());
+            generateXLSX(database, uuid, table.getPath());
 
-        Intent intent = new Intent();
-        intent.setAction(android.content.Intent.ACTION_VIEW);
+            Intent intent = new Intent();
+            intent.setAction(android.content.Intent.ACTION_VIEW);
 
-        Uri uri = Uri.parse(table.getAbsolutePath());
+            Uri uri = Uri.parse(table.getAbsolutePath());
 
-        intent.setDataAndType(uri, "application/vnd.ms-excel");
-        startActivity(intent);
-
+            intent.setDataAndType(uri, "application/vnd.ms-excel");
+            startActivity(intent);
+        }
+        else{
+            FragmentManager manager = getSupportFragmentManager();
+            PrintAlert alert = new PrintAlert();
+            alert.show(manager, "smeta_print");
+        }
     }
 
     @Override
@@ -193,6 +206,15 @@ public class SmetaContentMenu extends AppCompatActivity {
     void getAllItemsForSmetaCallback(Item item){
         items.add(item);
         adapter.notifyDataSetChanged();
+    }
+
+    private boolean isPackageInstalled(String packageName, PackageManager packageManager) {
+        try {
+            packageManager.getPackageInfo(packageName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 
 }

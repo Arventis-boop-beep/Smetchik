@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.astroybat.R;
+import com.example.astroybat.activities.SmetaContentMenu;
 import com.example.astroybat.classes.Item;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -70,13 +71,15 @@ public class ItemAdapter extends ArrayAdapter<Item>{
         //on click listeners init
         plus.setOnClickListener(view1 -> {
             plusAmount(item);
+            SmetaContentMenu.itemSetValueForKey(SmetaContentMenu.database, item.uuid,
+                    Integer.toString(item.count), "count");
             Objects.requireNonNull(price.getEditText()).setText(Integer.toString(item.count));
-            notifyDataSetChanged();
         });
         minus.setOnClickListener(view1 -> {
             minusAmount(item);
+            SmetaContentMenu.itemSetValueForKey(SmetaContentMenu.database, item.uuid,
+                    Integer.toString(item.count), "count");
             Objects.requireNonNull(price.getEditText()).setText(Integer.toString(item.count));
-            notifyDataSetChanged();
         });
 
         full_title.setText(item.title);
@@ -133,13 +136,11 @@ public class ItemAdapter extends ArrayAdapter<Item>{
 
     private void plusAmount(Item item) {
         item.count++;
-        notifyDataSetChanged();
     }
 
     private void minusAmount(Item item) {
         item.count--;
         if(item.count < 0)
             item.count = 0;
-        notifyDataSetChanged();
     }
 }

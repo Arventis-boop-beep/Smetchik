@@ -127,7 +127,7 @@ Java_com_example_astroybat_activities_SmetaContentMenu_generateXLSX(JNIEnv* env,
 
 
 JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_SmetaEdit_smetaSetValueForKey(JNIEnv* env, jobject obj, jstring database, jstring smeta_uuid, jstring value, jstring key) {
+Java_com_example_astroybat_activities_SmetaEdit_smetaSetValueForKey(JNIEnv* env, jclass obj, jstring database, jstring smeta_uuid, jstring value, jstring key) {
 	stroybat_smeta_set_value_for_key(
 			env->GetStringUTFChars(database, 0), 
 			env->GetStringUTFChars(smeta_uuid, 0), 
@@ -241,7 +241,7 @@ Java_com_example_astroybat_activities_ItemList_addItemForSmeta(JNIEnv *env, jobj
 }
 
 JNIEXPORT void JNICALL
-Java_com_example_astroybat_activities_ItemList_itemSetValueForKey(JNIEnv* env, jobject obj, jstring database, jstring uuid, jstring value, jstring key) {
+Java_com_example_astroybat_activities_SmetaContentMenu_itemSetValueForKey(JNIEnv* env, jclass obj, jstring database, jstring uuid, jstring value, jstring key) {
 	stroybat_item_set_value_for_key(
 			env->GetStringUTFChars(database, 0), 
 			env->GetStringUTFChars(uuid, 0), 

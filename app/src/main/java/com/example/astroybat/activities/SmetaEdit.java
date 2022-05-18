@@ -32,9 +32,9 @@ public class SmetaEdit extends AppCompatActivity {
 
     private native Smeta getSmeta(String database, String uuid);
 
-    native public void smetaSetValueForKey(String database, String smeta_uuid, String value, String key);
+    public static native void smetaSetValueForKey(String database, String smeta_uuid, String value, String key);
 
-    public String uuid;
+    public static String uuid;
     public Smeta smeta;
 
     TextInputLayout title, zakazchik, podryadchik, raboti, object, osnovanie;

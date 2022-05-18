@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/border_for_content_item">
 
     <TextView
         android:id="@+id/full_item_title"
@@ -126,7 +127,7 @@
             android:singleLine="true"
             android:layout_weight="1"
             tools:ignore="SpeakableTextPresentCheck"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="30dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>
