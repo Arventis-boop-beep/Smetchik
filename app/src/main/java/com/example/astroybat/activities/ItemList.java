@@ -15,10 +15,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.astroybat.R;
+import com.example.astroybat.adapter.ItemListAdapter;
 import com.example.astroybat.classes.Item;
 
 import java.io.File;
@@ -30,7 +30,7 @@ public class ItemList extends AppCompatActivity {
     native Item addItemForSmeta(String database, Item item, String smeta_uuid, int data_type);
 
     ListView lvItems;
-    ArrayAdapter<String> adapter;
+    ItemListAdapter adapter;
     ArrayList<Item> items;
     ArrayList<String> items_titles;
     String uuid;
@@ -59,7 +59,7 @@ public class ItemList extends AppCompatActivity {
 
         //list view init
         lvItems = findViewById(R.id.items_list);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items_titles);
+        adapter = new ItemListAdapter(this, R.layout.item_list_layout, items_titles);
         lvItems.setAdapter(adapter);
 
 
@@ -69,7 +69,7 @@ public class ItemList extends AppCompatActivity {
             Item item = items.get(i);
             if(item.id <= 0){
                 addItemForSmeta(database, item, uuid, item.id);
-                backToSmetaContentMenu();
+                backToSmetaContentMenu(uuid);
             }
             else {
                 Intent new_intent = new Intent(this, ItemList.class);
@@ -109,8 +109,9 @@ public class ItemList extends AppCompatActivity {
     }
 
 
-    private void backToSmetaContentMenu(){
+    private void backToSmetaContentMenu(String uuid){
         Intent intent = getParentActivityIntent();
+        intent.putExtra("uuid", uuid);
         startActivity(intent);
     }
 

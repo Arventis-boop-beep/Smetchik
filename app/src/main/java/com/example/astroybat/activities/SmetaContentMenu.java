@@ -13,11 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -52,11 +53,6 @@ public class SmetaContentMenu extends AppCompatActivity {
     public static String database;
     private final static String TAG = "SmetaContentMenu";
 
-    //for installation check
-    String packageName;//replace the string with your app package name you want to check
-    PackageManager packageManager;
-    //
-
     TextView title;
     ListView contentView;
     public ItemAdapter adapter;
@@ -85,6 +81,7 @@ public class SmetaContentMenu extends AppCompatActivity {
         items = new ArrayList<>();
         adapter = new ItemAdapter(this, R.layout.content_item_layout, items);
         contentView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         
 		//Getting items list
         getAllItemsForSmeta(database, uuid);
@@ -141,33 +138,33 @@ public class SmetaContentMenu extends AppCompatActivity {
 
     private void PrintSmeta(String uuid) {
 
-        packageManager = getPackageManager();
-        packageName = "com.microsoft.office.excel";
-        // TODO: 18.05.2022 Определить имя пакета для открытия эксель-таблиц
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        //new File(getApplicationContext().getFilesDir(), "output.xlsx");
+        File table = null;
+        try {
+            table = File.createTempFile("output", ".xlsx", storageDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        if(isPackageInstalled(packageName, packageManager)) {
+        Resources resources = this.getResources();
+        InputStream tableIn = resources.openRawResource(R.raw.template);
+        try {
+            MainActivity.copy(tableIn, table);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            File table = new File(getApplicationContext().getFilesDir(), "output.xlsx");
-            Resources resources = this.getResources();
+        assert table != null;
+        generateXLSX(database, uuid, table.getAbsolutePath());
 
-            InputStream tableIn = resources.openRawResource(R.raw.template);
-            try {
-                MainActivity.copy(tableIn, table);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            generateXLSX(database, uuid, table.getPath());
-
-            Intent intent = new Intent();
-            intent.setAction(android.content.Intent.ACTION_VIEW);
-
-            Uri uri = Uri.parse(table.getAbsolutePath());
-
-            intent.setDataAndType(uri, "application/vnd.ms-excel");
+        Intent intent = new Intent();
+        intent.setAction(android.content.Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(table.getAbsolutePath()), "application/vnd.ms-excel");
+        try {
             startActivity(intent);
         }
-        else{
+        catch (ActivityNotFoundException e){
             FragmentManager manager = getSupportFragmentManager();
             PrintAlert alert = new PrintAlert();
             alert.show(manager, "smeta_print");
@@ -207,16 +204,6 @@ public class SmetaContentMenu extends AppCompatActivity {
         items.add(item);
         adapter.notifyDataSetChanged();
     }
-
-    private boolean isPackageInstalled(String packageName, PackageManager packageManager) {
-        try {
-            packageManager.getPackageInfo(packageName, 0);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
-
 }
 
 // TODO: 13.05.2022 Вставить и проверить новые jni функции из телеги

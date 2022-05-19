@@ -66,20 +66,25 @@ public class ItemAdapter extends ArrayAdapter<Item>{
         TextInputLayout unit = convertView.findViewById(R.id.item_unit);
         TextInputLayout amount = convertView.findViewById(R.id.item_amount);
         TextInputLayout price = convertView.findViewById(R.id.item_price);
-        TextInputLayout overall = convertView.findViewById(R.id.item_overall);
+        TextView overall = convertView.findViewById(R.id.item_overall);
+
+        //standart text for overall
+        CharSequence stdOverall = "Итого: ";
 
         //on click listeners init
         plus.setOnClickListener(view1 -> {
             plusAmount(item);
             SmetaContentMenu.itemSetValueForKey(SmetaContentMenu.database, item.uuid,
                     Integer.toString(item.count), "count");
-            Objects.requireNonNull(price.getEditText()).setText(Integer.toString(item.count));
+            Objects.requireNonNull(amount.getEditText()).setText(Integer.toString(item.count));
+            overall.setText(stdOverall + Integer.toString(item.count * item.price));
         });
         minus.setOnClickListener(view1 -> {
             minusAmount(item);
             SmetaContentMenu.itemSetValueForKey(SmetaContentMenu.database, item.uuid,
                     Integer.toString(item.count), "count");
-            Objects.requireNonNull(price.getEditText()).setText(Integer.toString(item.count));
+            Objects.requireNonNull(amount.getEditText()).setText(Integer.toString(item.count));
+            overall.setText(stdOverall + Integer.toString(item.count * item.price));
         });
 
         full_title.setText(item.title);
@@ -88,18 +93,8 @@ public class ItemAdapter extends ArrayAdapter<Item>{
         Objects.requireNonNull(unit.getEditText()).setText(item.unit);
         Objects.requireNonNull(price.getEditText()).setText(Integer.toString(item.price));
         Objects.requireNonNull(amount.getEditText()).setText(Integer.toString(item.count));
-        Objects.requireNonNull(overall.getEditText()).setText(Integer.toString(item.count * item.price));
+        overall.setText(stdOverall + Integer.toString(item.count * item.price));
 
-        amount.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                notifyDataSetChanged();
-            }
-        });
         price.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -107,19 +102,12 @@ public class ItemAdapter extends ArrayAdapter<Item>{
 
             @Override
             public void afterTextChanged(Editable editable) {
-                notifyDataSetChanged();
+                SmetaContentMenu.itemSetValueForKey(SmetaContentMenu.database, item.uuid,
+                        Integer.toString(item.price), "price");
+                overall.setText(stdOverall + Integer.toString(item.count * item.price));
             }
         });
-        overall.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-                notifyDataSetChanged();
-            }
-        });
         title.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -127,7 +115,8 @@ public class ItemAdapter extends ArrayAdapter<Item>{
 
             @Override
             public void afterTextChanged(Editable editable) {
-                notifyDataSetChanged();
+                SmetaContentMenu.itemSetValueForKey(SmetaContentMenu.database, item.uuid,
+                        item.title, "title");
             }
         });
 
