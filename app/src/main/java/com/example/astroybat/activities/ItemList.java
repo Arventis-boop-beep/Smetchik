@@ -70,6 +70,7 @@ public class ItemList extends AppCompatActivity {
             if(item.id <= 0){
                 addItemForSmeta(database, item, uuid, item.id);
                 backToSmetaContentMenu(uuid);
+                finish();
             }
             else {
                 Intent new_intent = new Intent(this, ItemList.class);
@@ -77,6 +78,7 @@ public class ItemList extends AppCompatActivity {
                 new_intent.putExtra("datatype", datatype);
                 new_intent.putExtra("parent", item.id);
                 startActivity(new_intent);
+                finish();
             }
         });
 

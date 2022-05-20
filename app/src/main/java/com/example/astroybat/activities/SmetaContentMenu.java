@@ -184,6 +184,7 @@ public class SmetaContentMenu extends AppCompatActivity {
 
         if(item.getItemId() == R.id.delete_item) {
             removeItem(database, items.get(i.position).uuid);
+            items.remove(i.position);
             adapter.notifyDataSetChanged();
             return true;
         }
