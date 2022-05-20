@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 		ListView lvMain = findViewById(R.id.lv);
 		adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smeta_titles);
 		lvMain.setAdapter(adapter);
-
+		adapter.notifyDataSetChanged();
 
         //Получение списка смет
 		getAllSmeta(database);

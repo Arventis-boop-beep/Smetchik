@@ -126,9 +126,11 @@ public class SmetaContentMenu extends AppCompatActivity {
                 return true;
             case R.id.add_materials:
                 openItemListActivity(uuid, -1);
+                finish();
                 break;
             case R.id.add_services:
                 openItemListActivity(uuid, 0);
+                finish();
                 break;
             default:
                 break;
