@@ -119,8 +119,8 @@
         android:gravity="start|center_vertical"
         android:singleLine="true"
         android:layout_weight="1"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:layout_marginStart="20dp"/>
+        android:layout_marginStart="20dp"
+        android:textStyle="italic"/>
 
 
 </LinearLayout>
