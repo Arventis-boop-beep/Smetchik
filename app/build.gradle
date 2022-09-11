@@ -2,7 +2,7 @@
  * File              : build.gradle
  * Author            : Igor V. Sementsov <ig.kuzm@gmail.com>
  * Date              : 19.02.2022
- * Last Modified Date: 28.02.2022
+ * Last Modified Date: 11.09.2022
  * Last Modified By  : Igor V. Sementsov <ig.kuzm@gmail.com>
  */
 plugins {
@@ -26,11 +26,20 @@ android {
             }
         }
     }
+	signingConfigs {
+		release {
+			storeFile file("KeyStore")
+			storePassword "access"
+			keyAlias "kuzm.ig.AndroidKey"
+			keyPassword "access"
+		}
+	}
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+			signingConfig signingConfigs.release
         }
 		debug { 
 			ndk{
